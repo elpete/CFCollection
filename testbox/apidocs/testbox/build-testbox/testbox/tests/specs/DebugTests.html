@@ -1,0 +1,885 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>DebugTests</title>
+	<meta name="keywords" content="testbox.build-testbox.testbox.tests.specs.concurrent.Callable interface">
+	<!-- common assets -->
+	
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel ="stylesheet" type="text/css" href="../../../../../bootstrap/css/bootstrap.min.css">
+<link rel ="stylesheet" type="text/css" href="../../../../../stylesheet.css">
+	
+<link href='https://fonts.googleapis.com/css?family=Ubuntu:400,300,300italic,400italic,700,700italic|Ubuntu+Mono' rel='stylesheet' type='text/css' />
+	
+<script src="../../../../../bootstrap/js/jquery-2.1.0.min.js" type="text/javascript"></script>
+<script src="../../../../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+
+<script>
+$(document).ready(function() {
+	// Global Tool Tip Settings
+	$( '[title]' ).tooltip({
+		 animation: 'slide',
+		 delay: { show: 250, hide: 250 }
+	});
+});
+</script>
+	<!-- syntax highlighter -->
+	<link type="text/css" rel="stylesheet" href="../../../../../highlighter/styles/shCoreDefault.css">
+	<script src="../../../../../highlighter/scripts/shCore.js"></script>
+	<script src="../../../../../highlighter/scripts/shBrushColdFusion.js"></script>
+	<script src="../../../../../highlighter/scripts/shBrushXml.js"></script>
+	<script src="../../../../../highlighter/scripts/shBrushSql.js"></script>
+	<script src="../../../../../highlighter/scripts/shBrushJScript.js"></script>
+	<script src="../../../../../highlighter/scripts/shBrushJava.js"></script>
+	<script src="../../../../../highlighter/scripts/shBrushCss.js"></script>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+</head>
+
+<body class="withNavbar">
+
+
+
+
+
+
+<!-- ========= START OF NAVBAR ======= -->
+<a name="navbar_top"></a>
+<a href="#skip-navbar_top" title="skip navigation links"></a>	
+
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container-fluid">
+    
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#class-navigation">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#"><strong>TestBox v2.3.0</strong></a>
+		</div>
+
+	    <div class="collapse navbar-collapse" id="class-navigation">
+	    	<ul class="nav navbar-nav">
+				
+					
+					<li><a href="../../../../../overview-summary.html"><i class="glyphicon glyphicon-plane"></i> overview</a></li>
+					
+				
+
+				
+					<li><a href="package-summary.html"><i class="glyphicon glyphicon-folder-open"></i> &nbsp;package</a></li>
+				
+
+			  	
+					<li class="dropdown active">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-file"></i> class <b class="caret"></b></a>
+
+						<ul class="dropdown-menu">
+							<li><a href="#class">Class Definition</a></li>
+							<li><a href="#constructor_summary">Constructor Summary</a></li>
+							<li><a href="#constructor_detail">Constructor Detail</a></li>
+							<li><a href="#inherited_methods">Inherited Methods</a></li>
+							<li><a href="#method_summary">Method Summary</a></li>
+							<li><a href="#method_detail">Method Detail</a></li>
+							<li><a href="#property_summary">Property Summary</a></li>
+							<li><a href="#property_detail">Property Detail</a></li>
+							
+						</ul>
+					</li>
+				
+	      	</ul>
+
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="../../../../../index.html?testbox/build-testbox/testbox/tests/specs/DebugTests.html" target="_top">
+					<i class="glyphicon glyphicon-fullscreen"></i> Frames
+					</a>
+				</li>
+			</ul>
+	    </div>
+
+	</div>
+</nav>	
+
+<a name="skip-navbar_top"></a>
+<!-- ========= END OF NAVBAR ========= -->
+
+<!-- ======== start of class data ======== -->
+<a name="class"><!-- --></a>
+
+<!-- Package -->
+<div class="pull-right">
+	<a href="package-summary.html" title="Package: testbox.build-testbox.testbox.tests.specs"><span class="label label-success">testbox.build-testbox.testbox.tests.specs</span></a>
+</div>
+
+<h2>
+
+
+Class
+
+ DebugTests</h2>
+
+
+
+
+
+
+
+
+	
+		
+	
+	
+
+	
+		
+		
+			
+		
+	
+	
+
+	
+		
+		
+			
+		
+	
+	
+
+
+<!-- Inheritance Tree-->
+<pre style="background:white">lucee.Component
+    <img src="../../../../../resources/inherit.gif" alt="extended by "><a href="../../../../../testbox/system/BaseSpec.html" title="class in testbox.system">testbox.system.BaseSpec</a>
+      <img src="../../../../../resources/inherit.gif" alt="extended by ">testbox.build-testbox.testbox.tests.specs.DebugTests
+</pre>
+
+
+
+	
+	
+
+
+
+
+
+
+
+<div id="class-hint">
+	<p>My BDD Test</p>
+</div>
+
+
+<!-- Clas Attributes -->
+<div class="panel panel-info">
+	<div class="panel-heading"><strong>Class Attributes:</strong></div>
+		<div class="panel-body">
+		
+		
+			
+		
+			
+		
+			
+		
+			
+			
+			<li class="label label-danger label-annotations">
+				synchronized 
+				
+				: false		
+				
+			</li>
+			&nbsp;
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+			
+			<li class="label label-danger label-annotations">
+				accessors 
+				
+				: false		
+				
+			</li>
+			&nbsp;
+			
+		
+			
+		
+			
+			
+			<li class="label label-danger label-annotations">
+				persistent 
+				
+				: false		
+				
+			</li>
+			&nbsp;
+			
+		
+			
+		
+			
+		
+		
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+
+<a name="method_summary"><!-- --></a>
+<table class="table table-bordered table-hover">
+	<tr class="info">
+		<th align="left" colspan="2">
+			<strong>Method Summary</strong>
+		</th>
+	</tr>
+
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="DebugTests.html#afterAll()">afterAll</A></strong>()
+			<br>
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="DebugTests.html#beforeAll()">beforeAll</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIFE CYCLE Methods **********************************.
+			
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td align="right" valign="top" width="1%">
+			<code>any</code>
+		</td>
+		<td>
+			<strong><a href="DebugTests.html#run()">run</A></strong>()
+			<br>
+			
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BDD SUITES **********************************.
+			
+		</td>
+	</tr>
+	
+</table>
+
+
+
+<a name="inherited_methods"><!-- --></a>
+
+
+	
+
+	
+
+	&nbsp;
+	<a name="methods_inherited_from_class_testbox.system.BaseSpec"><!-- --></a>
+	<table class="table table-hover table-bordered">
+		<tr class="info">
+			<th align="left">
+				<strong>Methods inherited from class <kbd><a href="../../../../../testbox/system/BaseSpec.html" title="class in testbox.system">testbox.system.BaseSpec</a></kbd></strong>
+			</th>
+		</tr>
+		<tr>
+			<td>
+				
+				
+				
+					
+					
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+					
+					
+					
+						
+					
+					
+					
+					
+				
+				
+				
+					<a href="../../../../..//testbox/system/BaseSpec.html#addAssertions()">addAssertions</a>, <a href="../../../../..//testbox/system/BaseSpec.html#addMatchers()">addMatchers</a>, <a href="../../../../..//testbox/system/BaseSpec.html#afterEach()">afterEach</a>, <a href="../../../../..//testbox/system/BaseSpec.html#aroundEach()">aroundEach</a>, <a href="../../../../..//testbox/system/BaseSpec.html#aroundStub()">aroundStub</a>, <a href="../../../../..//testbox/system/BaseSpec.html#assert()">assert</a>, <a href="../../../../..//testbox/system/BaseSpec.html#beforeEach()">beforeEach</a>, <a href="../../../../..//testbox/system/BaseSpec.html#clearDebugBuffer()">clearDebugBuffer</a>, <a href="../../../../..//testbox/system/BaseSpec.html#closureStub()">closureStub</a>, <a href="../../../../..//testbox/system/BaseSpec.html#console()">console</a>, <a href="../../../../..//testbox/system/BaseSpec.html#createEmptyMock()">createEmptyMock</a>, <a href="../../../../..//testbox/system/BaseSpec.html#createMock()">createMock</a>, <a href="../../../../..//testbox/system/BaseSpec.html#createStub()">createStub</a>, <a href="../../../../..//testbox/system/BaseSpec.html#debug()">debug</a>, <a href="../../../../..//testbox/system/BaseSpec.html#describe()">describe</a>, <a href="../../../../..//testbox/system/BaseSpec.html#expect()">expect</a>, <a href="../../../../..//testbox/system/BaseSpec.html#expectedException()">expectedException</a>, <a href="../../../../..//testbox/system/BaseSpec.html#fail()">fail</a>, <a href="../../../../..//testbox/system/BaseSpec.html#feature()">feature</a>, <a href="../../../../..//testbox/system/BaseSpec.html#generateAroundEachClosuresStack()">generateAroundEachClosuresStack</a>, <a href="../../../../..//testbox/system/BaseSpec.html#getDebugBuffer()">getDebugBuffer</a>, <a href="../../../../..//testbox/system/BaseSpec.html#getMockBox()">getMockBox</a>, <a href="../../../../..//testbox/system/BaseSpec.html#getProperty()">getProperty</a>, <a href="../../../../..//testbox/system/BaseSpec.html#given()">given</a>, <a href="../../../../..//testbox/system/BaseSpec.html#hasExpectedException()">hasExpectedException</a>, <a href="../../../../..//testbox/system/BaseSpec.html#init()">init</a>, <a href="../../../../..//testbox/system/BaseSpec.html#isExpectedException()">isExpectedException</a>, <a href="../../../../..//testbox/system/BaseSpec.html#it()">it</a>, <a href="../../../../..//testbox/system/BaseSpec.html#makePublic()">makePublic</a>, <a href="../../../../..//testbox/system/BaseSpec.html#prepareMock()">prepareMock</a>, <a href="../../../../..//testbox/system/BaseSpec.html#print()">print</a>, <a href="../../../../..//testbox/system/BaseSpec.html#println()">println</a>, <a href="../../../../..//testbox/system/BaseSpec.html#querySim()">querySim</a>, <a href="../../../../..//testbox/system/BaseSpec.html#runAfterEachClosures()">runAfterEachClosures</a>, <a href="../../../../..//testbox/system/BaseSpec.html#runAroundEachClosures()">runAroundEachClosures</a>, <a href="../../../../..//testbox/system/BaseSpec.html#runBeforeEachClosures()">runBeforeEachClosures</a>, <a href="../../../../..//testbox/system/BaseSpec.html#runRemote()">runRemote</a>, <a href="../../../../..//testbox/system/BaseSpec.html#runSpec()">runSpec</a>, <a href="../../../../..//testbox/system/BaseSpec.html#runTestMethod()">runTestMethod</a>, <a href="../../../../..//testbox/system/BaseSpec.html#scenario()">scenario</a>, <a href="../../../../..//testbox/system/BaseSpec.html#sliceTagContext()">sliceTagContext</a>, <a href="../../../../..//testbox/system/BaseSpec.html#story()">story</a>, <a href="../../../../..//testbox/system/BaseSpec.html#then()">then</a>, <a href="../../../../..//testbox/system/BaseSpec.html#when()">when</a>, <a href="../../../../..//testbox/system/BaseSpec.html#xdescribe()">xdescribe</a>, <a href="../../../../..//testbox/system/BaseSpec.html#xit()">xit</a>
+				
+			</td>
+		</tr>
+	</table>
+
+	
+
+	
+
+	&nbsp;
+	<a name="methods_inherited_from_class_lucee.Component"><!-- --></a>
+	<table class="table table-hover table-bordered">
+		<tr class="info">
+			<th align="left">
+				<strong>Methods inherited from class <kbd>lucee.Component</kbd></strong>
+			</th>
+		</tr>
+		<tr>
+			<td>
+				
+				
+				
+				
+				
+					<span class="label label-warning"><em>None</em></span>
+				
+			</td>
+		</tr>
+	</table>
+
+
+<hr>
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+
+
+<!-- ============ PROPERTY DETAIL ========== -->
+
+
+
+
+
+
+
+
+
+<!-- ============ METHOD DETAIL ========== -->
+
+<a name="method_detail"><!-- --></a>
+<table class="table table-bordered">
+	<tr class="info">
+		<th colspan="1" align="left">
+			<strong>Method Detail</strong>
+		</th>
+	</tr>
+</table>
+
+
+	
+	<a name="afterAll()"><!-- --></a>
+	<h3>afterAll</h3>
+	
+	<kbd>public any <strong>afterAll</strong>()</kbd>
+	
+	<br><br>
+
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="beforeAll()"><!-- --></a>
+	<h3>beforeAll</h3>
+	
+	<kbd>public any <strong>beforeAll</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>LIFE CYCLE Methods **********************************</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+	
+	<a name="run()"><!-- --></a>
+	<h3>run</h3>
+	
+	<kbd>public any <strong>run</strong>()</kbd>
+	
+	<br><br>
+
+	
+		<p>BDD SUITES **********************************</p>
+	
+
+	
+		
+		
+	
+
+	
+	
+
+	
+
+	
+
+	</dl>
+	<hr>
+
+
+
+
+</body>
+</html>
+

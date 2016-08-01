@@ -1,0 +1,41 @@
+{
+    "name":"CFCollection",
+    "version":"1.0.0",
+    "author":"Eric Peterson",
+    "location":"elpete/cfcollection#v1.0.0",
+    "homepage":"https://github.com/elpete/cfcollection",
+    "documentation":"https://github.com/elpete/cfcollection",
+    "repository":{
+        "type":"git",
+        "URL":"https://github.com/elpete/cfcollection"
+    },
+    "bugs":"https://github.com/elpete/cfcollection/issues",
+    "slug":"cfcollection",
+    "shortDescription":"An array wrapper for functional programming",
+    "description":"An array wrapper for functional programming, including static macroable support for Lucee 5+",
+    "type":"modules",
+    "keywords":[
+        "functional",
+        "array",
+        "chaining",
+        "macro"
+    ],
+    "private":false,
+    "license":[
+        {
+            "type":"MIT",
+            "URL":"http://opensource.org/licenses/MIT"
+        }
+    ],
+    "ignore":[
+        "**/.*",
+        "test",
+        "tests"
+    ],
+    "dependencies":{
+        "testbox":"^2.3.0+00044"
+    },
+    "installPaths":{
+        "testbox":"testbox"
+    }
+}
