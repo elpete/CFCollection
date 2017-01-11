@@ -14,7 +14,7 @@ component {
     // Imperative Methods
 
     public Collection function each( callback ) {
-        collection.each( callback );
+        ArrayEach( collection, callback );
 
         return this;
     }
@@ -22,7 +22,11 @@ component {
     // Functional Methods
 
     public Collection function map( callback ) {
-        return collect( arrayMap( collection, callback ) );
+        var mapped = [];
+        for ( var i = 1; i <= arrayLen( collection ); i++ ) {
+            arrayAppend( mapped, callback( collection[ i ], i ) );
+        }
+        return collect( mapped );
     }
 
     public Collection function flatMap( callback ) {
@@ -31,7 +35,7 @@ component {
 
     public Collection function pluck( required string field ) {
         return this.map( function( item ) {
-            return item[ field ]
+            return item[ field ];
         } );
     }
 
@@ -50,15 +54,22 @@ component {
     }
 
     public Collection function reverse() {
-        return collect( arrayReverse( collection ) );
+        var reversed = [];
+        for ( var i = arrayLen( collection ); i > 0; i-- ) {
+            arrayAppend( reversed, collection[ i ] );
+        }
+        return collect( reversed );
     }
 
     public Collection function zip(
         required any newCollection,
-        projection = function( item1, item2 ) {
-            return [ item1, item2 ];
-        }
+        projection
     ) {
+        if ( isNull( arguments.projection ) ) {
+            arguments.projection = function( item1, item2 ) {
+                return [ item1, item2 ];
+            };
+        }
         newCollection = normalizeToArray( newCollection );
 
         if ( this.count() != arrayLen( newCollection ) ) {
@@ -74,18 +85,21 @@ component {
     }
 
     public Collection function transpose() {
-        return collect( arrayMap( collection[ 1 ], function( _, i ) {
-            return arrayMap( collection, function( arr ) {
-                return arr[ i ];
-            } );
-        } ) );
+        return collect(
+            collect( collection[ 1 ] ).map( function( _, i ) {
+                return collect( collection ).map( function( arr ) {
+                    return arr[ i ];
+                } ).toArray();
+            } ).toArray()
+        );
     }
 
-    public Collection function sort(
-        callback = function( itemA, itemB ) {
-            return compare( itemA, itemB );
+    public Collection function sort( callback ) {
+        if ( isNull( arguments.callback ) ) {
+            arguments.callback = function( itemA, itemB ) {
+                return compare( itemA, itemB );
+            };
         }
-    ) {
         if ( isSimpleValue( callback ) ) {
             local.key = callback;
             arguments.callback = function( itemA, itemB ) {
@@ -110,7 +124,7 @@ component {
         required numeric position,
         numeric length = this.count() + 1 - position
     ) {
-        return collect( arraySlice( this.duplicate().toArray(), position, length ) );
+        return collect( arraySlice( clone().toArray(), position, length ) );
     }
 
     public Collection function chunk( required numeric length ) {
@@ -145,11 +159,11 @@ component {
         return arrayIsEmpty( collection );
     }
 
-    public any function first( predicate, default ) {
+    public any function first( predicate, defaultValue ) {
         if ( isNull( predicate ) ) {
             arguments.predicate = function() {
                 return true;
-            }
+            };
         }
 
         for ( var item in this.toArray() ) {
@@ -158,15 +172,15 @@ component {
             }
         }
 
-        if ( ! isNull( default ) ) {
-            return defaultValue( default );
+        if ( ! isNull( defaultValue ) ) {
+            return getDefaultValue( defaultValue );
         }
 
         throw( type = "CollectionIsEmpty", message = "Cannot return the result because the collection is either empty or no value matched the predicate with no default value provided." );
     }
 
-    public any function last( predicate, default ) {
-        return this.duplicate().reverse().first( argumentCollection = arguments );
+    public any function last( predicate, defaultValue ) {
+        return clone().reverse().first( argumentCollection = arguments );
     }
 
     public numeric function count() {
@@ -203,7 +217,7 @@ component {
         var collection = this;
 
         if ( ! isNull( field ) ) {
-            collection = this.duplicate().pluck( field );
+            collection = clone().pluck( field );
         }
 
         return collection.reduce( function( acc, item ) {
@@ -227,12 +241,12 @@ component {
         return callback( this );
     }
 
-    public boolean function contains( callback ) {
+    public boolean function has( callback ) {
         return ! this.filter( callback ).empty();
     }
 
     public boolean function any( callback ) {
-        return this.contains( callback );
+        return this.has( callback );
     }
 
     public boolean function every( callback ) {
@@ -245,7 +259,7 @@ component {
         return new Collection( items );
     }
 
-    private Collection function duplicate() {
+    private Collection function clone() {
         var newCollection = new Collection( this.toArray() );
         return newCollection;
     }
@@ -275,7 +289,7 @@ component {
     private array function queryToArray( required query q ) {
         var arr = [];
         for ( var row in q ) {
-            arr.append( row );
+            arrayAppend( arr, row );
         }
         return arr;
     }
@@ -285,7 +299,7 @@ component {
         var results = [];
         
         for ( var item in arr ) {
-            if ( depth === 1 ) {
+            if ( depth == 1 ) {
                 results = arrayMerge( results, item );
                 continue;
             }
@@ -309,7 +323,7 @@ component {
         return results;
     }
 
-    private any function defaultValue( value ) {
+    private any function getDefaultValue( value ) {
         if ( isCustomFunction( value ) || isClosure( value ) ) {
             return value();
         }

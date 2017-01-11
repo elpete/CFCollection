@@ -30,7 +30,7 @@ component extends="testbox.system.BaseSpec" {
                     { id = 2, name = "Spock", rank = "Commander", species = "Vulcan" },
                     { id = 3, name = "Odo", rank = "Constable", species = "Changeling" }
                 ];
-                var qry = queryNew( "id,name,rank,species", "cf_sql_numeric,cf_sql_varchar,cf_sql_varchar,cf_sql_varchar", data );
+                var qry = queryNew( "id,name,rank,species", "cf_sql_integer,cf_sql_varchar,cf_sql_varchar,cf_sql_varchar", data );
 
                 var collection = new models.Collection( qry );
 
@@ -54,7 +54,7 @@ component extends="testbox.system.BaseSpec" {
                 var collection = new models.Collection( data );
                 var executed = [];
                 collection.each( function( num ) { 
-                    executed.append( num );
+                    arrayAppend( executed, num );
                 } );
 
                 expect( executed ).toHaveLength( 4, "Each number should have been called." );
@@ -134,7 +134,7 @@ component extends="testbox.system.BaseSpec" {
                 var data = [
                     { x = 1, y = 2 },
                     { x = 3, y = 4 },
-                    { x = 5, y = 6 },
+                    { x = 5, y = 6 }
                 ];
                 var expected = [ 1, 2, 3, 4, 5, 6 ];
 
@@ -224,7 +224,7 @@ component extends="testbox.system.BaseSpec" {
                             { id = 4, name = "Jonathan Archer", rank = "Captain", species = "Human" }
                         ],
                         "Commander" = [
-                            { id = 2, name = "Spock", rank = "Commander", species = "Vulcan" },
+                            { id = 2, name = "Spock", rank = "Commander", species = "Vulcan" }
                         ],
                         "Constable" = [
                             { id = 3, name = "Odo", rank = "Constable", species = "Changeling" }
@@ -509,7 +509,7 @@ component extends="testbox.system.BaseSpec" {
                     var collection = new models.Collection();
                     var expected = 5;
                     
-                    var actual = collection.first( default = 5 );
+                    var actual = collection.first( defaultValue = 5 );
                     expect( actual ).toBe( expected );
                 } );
 
@@ -529,7 +529,7 @@ component extends="testbox.system.BaseSpec" {
                     var collection = new models.Collection();
                     var expected = "Hello World!";
                     
-                    var actual = collection.first( default = function() {
+                    var actual = collection.first( defaultValue = function() {
                         return "Hello World!";
                     } );
                     expect( actual ).toBe( expected );
@@ -571,7 +571,7 @@ component extends="testbox.system.BaseSpec" {
                     var collection = new models.Collection();
                     var expected = 5;
                     
-                    var actual = collection.last( default = 5 );
+                    var actual = collection.last( defaultValue = 5 );
                     expect( actual ).toBe( expected );
                 } );
 
@@ -591,7 +591,7 @@ component extends="testbox.system.BaseSpec" {
                     var collection = new models.Collection();
                     var expected = "Hello World!";
                     
-                    var actual = collection.last( default = function() {
+                    var actual = collection.last( defaultValue = function() {
                         return "Hello World!";
                     } );
                     expect( actual ).toBe( expected );
@@ -722,7 +722,7 @@ component extends="testbox.system.BaseSpec" {
                 expect( isCollection ).toBeTrue( "The value passed in to the pipe callback should be a Collection." );
             } );
 
-            it( "contains", function() {
+            it( "has", function() {
                 var data = [
                     { id = 1, name = "James T. Kirk", rank = "Captain", species = "Human" },
                     { id = 2, name = "Spock", rank = "Commander", species = "Vulcan" },
@@ -731,14 +731,14 @@ component extends="testbox.system.BaseSpec" {
                 ];
 
                 var collection = new models.Collection( data );
-                var actual = collection.contains( function( crewMember ) {
+                var actual = collection.has( function( crewMember ) {
                     return crewMember.species == "Vulcan";
                 } );
 
                 expect( actual ).toBeTrue();
             } );
 
-            it( "any (alias for contains)", function() {
+            it( "any (alias for has)", function() {
                 var data = [
                     { id = 1, name = "James T. Kirk", rank = "Captain", species = "Human" },
                     { id = 2, name = "Spock", rank = "Commander", species = "Vulcan" },
