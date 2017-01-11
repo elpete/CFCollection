@@ -473,7 +473,7 @@ collection.pipe( function( collection ) {
 // [ "A", "A", "B", "D", "F", "A", "C" ]
 ```
 
-### contains
+### has
 Returns true if any item in the collection returns true from the predicate function.
 
 ```cfc
@@ -484,7 +484,7 @@ var collection = new models.Collection( [
     { id = 4, name = "Jonathan Archer", rank = "Captain", species = "Human" }
 ] );
 
-collection.contains( function( crewMember ) {
+collection.has( function( crewMember ) {
     return crewMember.species == "Vulcan";
 } );
 
@@ -492,7 +492,7 @@ collection.contains( function( crewMember ) {
 ```
 
 ### any
-Alias for `contains`. Returns true if any item in the collection returns true from the predicate function.
+Alias for `has`. Returns true if any item in the collection returns true from the predicate function.
 
 
 ### every
