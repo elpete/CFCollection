@@ -20,6 +20,11 @@
         "chaining",
         "macro"
     ],
+    "scripts":{
+        "postVersion":"package set location='elpete/cfcollection#v`package version`'",
+        "onRelease":"publish",
+        "postPublish":"!git push && !git push --tags"
+    },
     "private":false,
     "license":[
         {
