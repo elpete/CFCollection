@@ -7,6 +7,10 @@ component {
         return this;
     }
 
+    public Collection function collect( any items = [] ) {
+        return new Collection( items );
+    }
+
     public array function toArray() {
         return duplicate( collection );
     }
