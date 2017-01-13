@@ -88,18 +88,58 @@ component extends="testbox.system.BaseSpec" {
                 } );
             } );
 
-            it( "pluck", function() {
-                var data = [
-                    { label = "A", value = 1 },
-                    { label = "B", value = 2 },
-                    { label = "C", value = 3 },
-                    { label = "D", value = 4 }
-                ];
-                var expected = [ 1, 2, 3, 4 ];
+            describe( "pluck", function() {
+                it( "plucks a single value from a collection", function() {
+                    var data = [
+                        { label = "A", value = 1 },
+                        { label = "B", value = 2 },
+                        { label = "C", value = 3 },
+                        { label = "D", value = 4 }
+                    ];
+                    var expected = [ 1, 2, 3, 4 ];
 
-                var collection = new models.Collection( data );
-                
-                expect( collection.pluck( "value" ).toArray() ).toBe( expected );
+                    var collection = new models.Collection( data );
+                    
+                    expect( collection.pluck( "value" ).toArray() ).toBe( expected );
+                } );
+
+                it( "can pluck a list of values from a collection", function() {
+                    var data = [
+                        { label = "A", value = 1, importance = "10" },
+                        { label = "B", value = 2, importance = "20" },
+                        { label = "C", value = 3, importance = "50" },
+                        { label = "D", value = 4, importance = "20" }
+                    ];
+                    var expected = [
+                        { value = 1, importance = "10" },
+                        { value = 2, importance = "20" },
+                        { value = 3, importance = "50" },
+                        { value = 4, importance = "20" }
+                    ];
+
+                    var collection = new models.Collection( data );
+                    
+                    expect( collection.pluck( "value,importance" ).toArray() ).toBe( expected );
+                } );
+
+                it( "can pluck an array of values from a collection", function() {
+                    var data = [
+                        { label = "A", value = 1, importance = "10" },
+                        { label = "B", value = 2, importance = "20" },
+                        { label = "C", value = 3, importance = "50" },
+                        { label = "D", value = 4, importance = "20" }
+                    ];
+                    var expected = [
+                        { value = 1, importance = "10" },
+                        { value = 2, importance = "20" },
+                        { value = 3, importance = "50" },
+                        { value = 4, importance = "20" }
+                    ];
+
+                    var collection = new models.Collection( data );
+                    
+                    expect( collection.pluck( [ "value", "importance" ] ).toArray() ).toBe( expected );
+                } );
             } );
 
             describe( "flatten", function() {

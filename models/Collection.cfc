@@ -33,9 +33,19 @@ component {
         return this.map( callback ).flatten( 1 );
     }
 
-    public Collection function pluck( required string field ) {
+    public Collection function pluck( required any field ) {
+        var keys = normalizeToArray( arguments.field );
         return this.map( function( item ) {
-            return item[ field ];
+            if ( arrayLen( keys ) == 1 ) {
+                return item[ keys[ 1 ] ];
+            }
+
+            // CF10 doesn't have arrayReduce
+            var obj = {};
+            for ( var key in keys ) {
+                obj[ key ] = item[ key ];
+            }
+            return obj;
         } );
     }
 
