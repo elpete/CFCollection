@@ -102,7 +102,7 @@ collection.flatten();
 ```
 
 ### pluck
-Shortuct for `map` to a specific key on a struct.
+Shortuct for `map` to one or more keys on a struct or component.  Keys can be passed in as a comma-separated list or an array.
 
 ```cfc
 var collection = new Collection( [
@@ -397,6 +397,21 @@ collection.groupBy( "rank" );
 // }
 ```
 
+### serialize
+Returns the underlying collection serialized to JSON.  Can limit the serialized properties to a passed in comma-separated list or array of keys.
+
+```
+var collection = new models.Collection( [
+    { label = "A", value = 1, importance = "10" },
+    { label = "B", value = 2, importance = "20" },
+    { label = "C", value = 3, importance = "50" },
+    { label = "D", value = 4, importance = "20" }
+] );
+
+collection.serialize( [ "value", "importance" ] );
+
+// [{"IMPORTANCE":10,"VALUE":1},{"IMPORTANCE":20,"VALUE":2},{"IMPORTANCE":50,"VALUE":3},{"IMPORTANCE":20,"VALUE":4}]
+```
 
 ### sum
 Sums the values of a collection.  Can accept an optional field to sum by.
