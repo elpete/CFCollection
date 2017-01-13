@@ -22,7 +22,7 @@ var collection = Collection::make( [ 1, 2, 3, 4 ] );
 // OR
 var collection = wirebox.getInstance(
 	dsl = "Collection",
-	initArgs = { collection = [ 1, 2, 3, 4 ] }
+	initArguments = { collection = [ 1, 2, 3, 4 ] }
 );
 ```
 
