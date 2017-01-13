@@ -253,11 +253,12 @@ component {
         return this.count() == this.filter( callback ).count();
     }
 
-    /* Private Methods */
-
-    private Collection function collect( any items = [] ) {
+    public Collection function collect( any items = [] ) {
         return new Collection( items );
     }
+
+    /* Private Methods */
+
 
     private Collection function clone() {
         var newCollection = new Collection( this.toArray() );

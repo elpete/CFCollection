@@ -37,6 +37,19 @@ collection.toArray();
 // [ 1, 2, 3, 4 ]
 ```
 
+### collect
+Returns the values passed in as a new collection.  Useful in conjunction with DI containers.
+
+```cfc
+var collection = new Collection();
+
+collection.collect(  [ 1, 2, 3, 4 ] );
+
+collection.toArray();
+
+// [ 1, 2, 3, 4 ]
+```
+
 ### each
 Loops over each value in the collection.
 
