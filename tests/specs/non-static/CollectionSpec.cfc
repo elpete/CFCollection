@@ -500,6 +500,36 @@ component extends="testbox.system.BaseSpec" {
                 expect( actual ).toBe( expected );
             } );
 
+            describe( "serialize", function() {
+                it( "serializes the collection in to JSON", function() {
+                    var data = [
+                        { label = "A", value = 1, importance = "10" },
+                        { label = "B", value = 2, importance = "20" },
+                        { label = "C", value = 3, importance = "50" },
+                        { label = "D", value = 4, importance = "20" }
+                    ];
+                    var expected = '[{"IMPORTANCE":10,"LABEL":"A","VALUE":1},{"IMPORTANCE":20,"LABEL":"B","VALUE":2},{"IMPORTANCE":50,"LABEL":"C","VALUE":3},{"IMPORTANCE":20,"LABEL":"D","VALUE":4}]';
+
+                    var collection = new models.Collection( data );
+                    
+                    expect( collection.serialize() ).toBe( expected );
+                } );
+
+                it( "can limit serialization to one or more columns passed in as a list or an array", function() {
+                    var data = [
+                        { label = "A", value = 1, importance = "10" },
+                        { label = "B", value = 2, importance = "20" },
+                        { label = "C", value = 3, importance = "50" },
+                        { label = "D", value = 4, importance = "20" }
+                    ];
+                    var expected = '[{"IMPORTANCE":10,"VALUE":1},{"IMPORTANCE":20,"VALUE":2},{"IMPORTANCE":50,"VALUE":3},{"IMPORTANCE":20,"VALUE":4}]';
+
+                    var collection = new models.Collection( data );
+                    
+                    expect( collection.serialize( [ "value", "importance" ]) ).toBe( expected );
+                } );
+            } );
+
             describe( "count methods", function() {
                 it( "count", function() {
                     var data = [ 1, 2, 3, 4 ];

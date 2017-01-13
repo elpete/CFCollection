@@ -263,12 +263,12 @@ component {
         return this.count() == this.filter( callback ).count();
     }
 
-    public Collection function collect( any items = [] ) {
-        return new Collection( items );
+    public string function serialize( any fields ) {
+        var thisCollection = isNull( fields ) ? this : this.pluck( fields );
+        return serializeJSON( thisCollection.toArray() );
     }
 
     /* Private Methods */
-
 
     private Collection function clone() {
         var newCollection = new Collection( this.toArray() );
