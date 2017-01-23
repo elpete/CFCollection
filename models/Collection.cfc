@@ -34,7 +34,7 @@ component {
     // Imperative Methods
 
     public Collection function each( callback ) {
-        ArrayEach( collection, callback );
+        ArrayEach( collection.toArray(), callback );
 
         return this;
     }
@@ -83,27 +83,36 @@ component {
         return collect( results );
     }
 
-    public Collection function unique( any column ) {
-        if ( isNull( column ) ) {
-            var set = createObject( "java", "java.util.HashSet" );
-            set.addAll( variables.collection );
-            return collect( set.toArray() );
+    public Collection function unique( any column = "" ) {
+        var autoColumn = false;
+        if ( column == "" ) {
+            autoColumn = true;
+            variables.collection = this.map( function( item ) {
+                return { "item" = item };
+            } );
+            column = "item";
         }
 
         var func = column;
-        if ( ! isCustomFunction( func ) ) {
+        if ( ! isCustomFunction( func ) && ! isClosure( func ) ) {
             func = function( item ) {
                 return item[ column ];
             };
         }
 
-        return values( reduce( function( memo, obj ) {
+        var result = values( reduce( function( memo, obj ) {
             var columnVal = func( obj );
             if ( ! structKeyExists( memo, columnVal ) ) {
                 memo[ columnVal ] = obj;
             }
             return memo;
         }, {} ) );
+
+        if ( autoColumn ) {
+            return result.pluck( "item" );
+        }
+
+        return result;
     }
 
     public Collection function reverse() {

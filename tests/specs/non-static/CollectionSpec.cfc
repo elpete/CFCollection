@@ -27,22 +27,24 @@ component extends="testbox.system.BaseSpec" {
             describe( "keys", function() {
                 it( "returns the keys of a struct as a collection", function() {
                     var obj = { "A" = 1, "B" = 2, "C" = 3 };
+                    var expected = [ "A", "B", "C" ];
 
                     var collection = new models.Collection();
                     collection = collection.keys( obj );
 
-                    expect( collection.toArray().sort( "text" ) ).toBe( [ "A", "B", "C" ].sort( "text" ) );
+                    expect( collection.sort().toArray() ).toBe( expected );
                 } );
             } );
 
             describe( "values", function() {
                 it( "returns the values of a struct as a collection", function() {
                     var obj = { "A" = 1, "B" = 2, "C" = 3 };
+                    var expected = [ 1, 2, 3 ];
 
                     var collection = new models.Collection();
                     collection = collection.values( obj );
 
-                    expect( collection.toArray().sort( "numeric" ) ).toBe( [ 1, 2, 3 ].sort( "numeric" ) );
+                    expect( collection.sort().toArray() ).toBe( expected );
                 } );
             } );
 
@@ -230,12 +232,12 @@ component extends="testbox.system.BaseSpec" {
             describe( "unique", function() {
                 it( "filters out duplicate items", function() {
                     var data = [ 1, 2, 1, 1, 1, 4, 3, 4 ];
-                    var expected = [ 1, 2, 4, 3 ];
+                    var expected = [ 1, 2, 3, 4 ];
 
                     var collection = new models.Collection( data );
                     collection = collection.unique();
 
-                    expect( collection.toArray() ).toBe( expected );
+                    expect( collection.sort().toArray() ).toBe( expected );
                 } );
 
                 it( "can return unique items based on a key", function() {

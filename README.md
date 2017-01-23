@@ -165,7 +165,7 @@ collection.filter( function( item ) {
 ```
 
 ### unique
-Returns a new collection with only unique items.  The first unique item is used.
+Returns a new collection with only unique items.  The first unique item is used.  Key order is not guaranteed.
 If no arguments are provided, a simple array is assumed.
 If a string value is provided, the value of that column in each array item is used as the unique key.
 A closure can be provided to have complete control over the unique key used.
