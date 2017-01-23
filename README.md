@@ -50,6 +50,24 @@ collection.toArray();
 // [ 1, 2, 3, 4 ]
 ```
 
+### keys
+Returns the keys of an object as a new collection.
+
+```cfc
+collection.keys( { "A" = 1, "B" = 2, "C" = 3 } );
+
+// [ "A", "B", "C" ]
+```
+
+### values
+Returns the values of an object as a new collection.
+
+```cfc
+collection.values( { "A" = 1, "B" = 2, "C" = 3 } );
+
+// [ 1, 2, 3 ]
+```
+
 ### each
 Loops over each value in the collection.
 
@@ -135,6 +153,40 @@ collection.filter( function( item ) {
 // [
 //     { label = "B", value = 2 },
 //     { label = "D", value = 4 }
+// ]
+```
+
+### unique
+Returns a new collection with only unique items.  The first unique item is used.
+If no arguments are provided, a simple array is assumed.
+If a string value is provided, the value of that column in each array item is used as the unique key.
+A closure can be provided to have complete control over the unique key used.
+
+```cfc
+var collection = new Collection( [ 1, 2, 1, 1, 1, 5, 5, 3, 4 ] );
+
+collection.unique();
+
+// [ 1, 2, 5, 3, 4 ]
+```
+
+```cfc
+var collection = new Collection( [
+    { label = "A", value = 4 },
+    { label = "B", value = 2 },
+    { label = "A", value = 3 },
+    { label = "A", value = 1 }
+] );
+
+collection.unique( "label" );
+// SAME AS
+collection.unique( function( item ) {
+    return item.label;
+} );
+
+// [
+//     { label = "A", value = 4 },
+//     { label = "B", value = 2 }
 // ]
 ```
 

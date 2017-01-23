@@ -11,6 +11,18 @@ component {
         return new Collection( items );
     }
 
+    public Collection function keys( required struct obj ) {
+        return collect( structKeyArray( obj ) );
+    }
+
+    public Collection function values( required struct obj ) {
+        var arr = [];
+        for ( var key in obj ) {
+            arrayAppend( arr, obj[ key ] );
+        }
+        return collect( arr );
+    }
+
     public array function toArray() {
         return duplicate( collection );
     }
@@ -65,6 +77,29 @@ component {
             }
         } );
         return collect( results );
+    }
+
+    public Collection function unique( any column ) {
+        if ( isNull( column ) ) {
+            var set = createObject( "java", "java.util.HashSet" );
+            set.addAll( variables.collection );
+            return collect( set.toArray() );
+        }
+
+        var func = column;
+        if ( ! isCustomFunction( func ) ) {
+            func = function( item ) {
+                return item[ column ];
+            };
+        }
+
+        return values( reduce( function( memo, obj ) {
+            var columnVal = func( obj );
+            if ( ! structKeyExists( memo, columnVal ) ) {
+                memo[ columnVal ] = obj;
+            }
+            return memo;
+        }, {} ) );
     }
 
     public Collection function reverse() {

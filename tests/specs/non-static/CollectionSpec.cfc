@@ -24,6 +24,28 @@ component extends="testbox.system.BaseSpec" {
                 expect( collection.toArray() ).toBe( data );
             } );
 
+            describe( "keys", function() {
+                it( "returns the keys of a struct as a collection", function() {
+                    var obj = { "A" = 1, "B" = 2, "C" = 3 };
+
+                    var collection = new models.Collection();
+                    collection = collection.keys( obj );
+
+                    expect( collection.toArray().sort( "text" ) ).toBe( [ "A", "B", "C" ].sort( "text" ) );
+                } );
+            } );
+
+            describe( "values", function() {
+                it( "returns the values of a struct as a collection", function() {
+                    var obj = { "A" = 1, "B" = 2, "C" = 3 };
+
+                    var collection = new models.Collection();
+                    collection = collection.values( obj );
+
+                    expect( collection.toArray().sort( "numeric" ) ).toBe( [ 1, 2, 3 ].sort( "numeric" ) );
+                } );
+            } );
+
             it( "can be instantiated with a query (which it converts to an array of structs)", function() {
                 var data = [
                     { id = 1, name = "James T. Kirk", rank = "Captain", species = "Human" },
@@ -203,6 +225,54 @@ component extends="testbox.system.BaseSpec" {
                     return item.value % 2 == 0;
                 } );
                 expect( collection.toArray() ).toBe( expected );
+            } );
+
+            describe( "unique", function() {
+                it( "filters out duplicate items", function() {
+                    var data = [ 1, 2, 1, 1, 1, 4, 3, 4 ];
+                    var expected = [ 1, 2, 4, 3 ];
+
+                    var collection = new models.Collection( data );
+                    collection = collection.unique();
+
+                    expect( collection.toArray() ).toBe( expected );
+                } );
+
+                it( "can return unique items based on a key", function() {
+                    var data = [
+                        { label = "A", value = 4 },
+                        { label = "B", value = 2 },
+                        { label = "A", value = 3 },
+                        { label = "A", value = 4 }
+                    ];
+                    var expected = [
+                        { label = "A", value = 4 },
+                        { label = "B", value = 2 }
+                    ];
+
+                    var collection = new models.Collection( data );
+                    collection = collection.unique( "label" );
+                    expect( collection.sort( "label" ).toArray() ).toBe( expected );
+                } );
+
+                it( "can return unique items based on the return value of a closure", function() {
+                    var data = [
+                        { label = "A", value = 4 },
+                        { label = "B", value = 2 },
+                        { label = "A", value = 3 },
+                        { label = "A", value = 4 }
+                    ];
+                    var expected = [
+                        { label = "A", value = 4 },
+                        { label = "B", value = 2 }
+                    ];
+
+                    var collection = new models.Collection( data );
+                    collection = collection.unique( function( row ) {
+                        return row.label;
+                    } );
+                    expect( collection.sort( "label" ).toArray() ).toBe( expected );
+                } );
             } );
 
             it( "reverse", function() {
@@ -512,7 +582,8 @@ component extends="testbox.system.BaseSpec" {
 
                     var collection = new models.Collection( data );
                     
-                    expect( collection.serialize() ).toBe( expected );
+                    expect( deserializeJSON( collection.serialize() ) )
+                        .toBe( deserializeJSON( expected ) );
                 } );
 
                 it( "can limit serialization to one or more columns passed in as a list or an array", function() {
@@ -526,7 +597,8 @@ component extends="testbox.system.BaseSpec" {
 
                     var collection = new models.Collection( data );
                     
-                    expect( collection.serialize( [ "value", "importance" ]) ).toBe( expected );
+                    expect( deserializeJSON( collection.serialize( [ "value", "importance" ] ) ) )
+                        .toBe( deserializeJSON( expected ) );
                 } );
             } );
 
