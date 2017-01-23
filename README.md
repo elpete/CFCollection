@@ -9,6 +9,14 @@
 If your CFML engine supports static methods (Lucee 5+), WireBox will return a method
 with a static constructor and static macro support. 👍
 
+A few mappings are provided out-of-the-box:
+
+#### `collection` & `collection@CFCollection`
+Injecting this will give you access to an instance of Collection.  You can start with a new collection by using the `collect` function.
+
+#### `collect` & `collect@CFCollection`
+Injecting this will give you direct access to the `collect` method.
+
 ## Methods
 
 ### init

@@ -11,6 +11,10 @@ component {
         return new Collection( items );
     }
 
+    public any function getCollectFunction() {
+        return collect;
+    }
+
     public Collection function keys( required struct obj ) {
         return collect( structKeyArray( obj ) );
     }
