@@ -85,7 +85,7 @@ component {
 
     public Collection function unique( any column = "" ) {
         var autoColumn = false;
-        if ( column == "" ) {
+        if ( isSimpleValue( column ) && column == "" ) {
             autoColumn = true;
             variables.collection = this.map( function( item ) {
                 return { "item" = item };
