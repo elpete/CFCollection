@@ -559,6 +559,79 @@ component extends="testbox.system.BaseSpec" {
             } );
         } );
 
+        describe( "pipeline functions", function() {
+            describe( "when", function() {
+                it( "runs the callback function only when the condition is true", function() {
+                    var data = [
+                        { id = 1, name = "James T. Kirk", rank = "Captain", species = "Human" },
+                        { id = 2, name = "Spock", rank = "Commander", species = "Vulcan" },
+                        { id = 3, name = "Odo", rank = "Constable", species = "Changeling" },
+                        { id = 4, name = "Jonathan Archer", rank = "Captain", species = "Human" }
+                    ];
+                    var expected = [
+                        { id = 1, name = "James T. Kirk", rank = "Captain", species = "Human" },
+                        { id = 4, name = "Jonathan Archer", rank = "Captain", species = "Human" }
+                    ];
+
+                    var collection = new models.Collection( data );
+                    collection = collection.when(
+                        condition = true,
+                        callback = function( c ) {
+                            return c.where( "species", "Human" );
+                        }
+                    );
+
+                    expect( collection.toArray() ).toBe( expected );
+                } );
+
+                it( "does not run the callback function when the condition is false", function() {
+                    var data = [
+                        { id = 1, name = "James T. Kirk", rank = "Captain", species = "Human" },
+                        { id = 2, name = "Spock", rank = "Commander", species = "Vulcan" },
+                        { id = 3, name = "Odo", rank = "Constable", species = "Changeling" },
+                        { id = 4, name = "Jonathan Archer", rank = "Captain", species = "Human" }
+                    ];
+                    var expected = [
+                        { id = 1, name = "James T. Kirk", rank = "Captain", species = "Human" },
+                        { id = 4, name = "Jonathan Archer", rank = "Captain", species = "Human" }
+                    ];
+
+                    var collection = new models.Collection( data );
+                    collection = collection.when( false, function( c ) {
+                        return c.where( "species", "Human" );
+                    } );
+
+                    expect( collection.toArray() ).toBe( data );
+                } );
+
+                it( "runs the defaultCallback (if exists) when the condition is false", function() {
+                    var data = [
+                        { id = 1, name = "James T. Kirk", rank = "Captain", species = "Human" },
+                        { id = 2, name = "Spock", rank = "Commander", species = "Vulcan" },
+                        { id = 3, name = "Odo", rank = "Constable", species = "Changeling" },
+                        { id = 4, name = "Jonathan Archer", rank = "Captain", species = "Human" }
+                    ];
+                    var expected = [
+                        { id = 1, name = "James T. Kirk", rank = "Captain", species = "Human" },
+                        { id = 4, name = "Jonathan Archer", rank = "Captain", species = "Human" }
+                    ];
+
+                    var collection = new models.Collection( data );
+                    collection = collection.when(
+                        condition = false,
+                        callback = function( c ) {
+                            return c.where( "species", "Vulcan" );
+                        },
+                        defaultCallback = function( c ) {
+                            return c.where( "species", "Human" );
+                        }
+                    );
+
+                    expect( collection.toArray() ).toBe( expected );
+                } );
+            } );
+        } );
+
         describe( "functions that return a non-collection value", function() {
             it( "reduce", function() {
                 var data = [ 1, 2, 3, 4 ];
