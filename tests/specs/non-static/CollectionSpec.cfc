@@ -557,6 +557,30 @@ component extends="testbox.system.BaseSpec" {
                     expect( collection.toArray() ).toBe( expected );
                 } );
             } );
+
+            describe( "tap", function() {
+                it( "returns the collection unchanged no matter what code is ran inside the callback", function() {
+                    var data = [ 1, 2, 3, 4 ];
+
+                    var collection = new models.Collection( data );
+                    var actual = collection.tap( function( c ) {
+                        debug( c.toArray() );
+                        var doubled = c.map( function( item ) {
+                            // This code runs, but should not change the collection.
+                            return item * 2;
+                        } );
+                        debug( doubled.toArray() );
+                        return doubled;
+                    } );
+
+                    expect( actual ).toBeInstanceOf( "models.Collection", "A collection should be returned" );
+                    expect( actual ).toBe( collection, "The same collection should be returned" );
+                    expect( actual.toArray() ).toBe( data );
+                    expect( getDebugBuffer() ).toHaveLength( 2, "The callback should have called the debug method twice." );
+                    expect( getDebugBuffer()[ 1 ].data ).toBe( [ 1, 2, 3, 4 ] );
+                    expect( getDebugBuffer()[ 2 ].data ).toBe( [ 2, 4, 6, 8 ] );
+                } );
+            } );
         } );
 
         describe( "functions that return a non-collection value", function() {
