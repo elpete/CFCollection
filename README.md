@@ -143,6 +143,8 @@ collection.pluck( "value" );
 // [ 1, 2, 3, 4 ]
 ```
 
+Pluck can also retrieve the values from objects with `accessors=true` in the exact same way.
+
 ### filter
 Returns a new collection where the predicate function provided returns true.
 

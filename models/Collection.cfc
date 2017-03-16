@@ -57,6 +57,9 @@ component {
         var keys = normalizeToArray( arguments.field );
         return this.map( function( item ) {
             if ( arrayLen( keys ) == 1 ) {
+                if ( isObject( item ) && structKeyExists( item, "get#keys[ 1 ]#" ) ) {
+                    return invoke( item, "get#keys[ 1 ]#" );
+                }
                 return item[ keys[ 1 ] ];
             }
 
