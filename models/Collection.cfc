@@ -66,7 +66,12 @@ component {
             // CF10 doesn't have arrayReduce
             var obj = {};
             for ( var key in keys ) {
-                obj[ key ] = item[ key ];
+                if ( isObject( item ) && structKeyExists( item, "get#key#" ) ) {
+                    obj[ key ] = invoke( item, "get#key#" );
+                }
+                else {
+                    obj[ key ] = item[ key ];
+                }
             }
             return obj;
         } );
