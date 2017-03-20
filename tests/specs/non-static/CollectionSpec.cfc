@@ -608,6 +608,60 @@ component extends="testbox.system.BaseSpec" {
                     expect( collection.toArray() ).toBe( expected );
                 } );
             } );
+
+            describe( "whereNot", function() {
+                it( "is a shortcut for reject for a key and value pair", function() {
+                    var data = [
+                        { id = 1, name = "James T. Kirk", rank = "Captain", species = "Human" },
+                        { id = 2, name = "Spock", rank = "Commander", species = "Vulcan" },
+                        { id = 3, name = "Odo", rank = "Constable", species = "Changeling" },
+                        { id = 4, name = "Jonathan Archer", rank = "Captain", species = "Human" }
+                    ];
+                    var expected = [
+                        { id = 2, name = "Spock", rank = "Commander", species = "Vulcan" },
+                        { id = 3, name = "Odo", rank = "Constable", species = "Changeling" }
+                    ];
+
+                    var collection = new models.Collection( data );
+                    collection = collection.whereNot( "species", "Human" );
+
+                    expect( collection.toArray() ).toBe( expected );
+                } );
+
+                it( "can accept an array of values to check against ( like an IN statement)", function() {
+                    var data = [
+                        { id = 1, name = "James T. Kirk", rank = "Captain", species = "Human" },
+                        { id = 2, name = "Spock", rank = "Commander", species = "Vulcan" },
+                        { id = 3, name = "Odo", rank = "Constable", species = "Changeling" },
+                        { id = 4, name = "Jonathan Archer", rank = "Captain", species = "Human" }
+                    ];
+                    var expected = [
+                        { id = 3, name = "Odo", rank = "Constable", species = "Changeling" }
+                    ];
+
+                    var collection = new models.Collection( data );
+                    collection = collection.whereNot( "species", [ "Human", "Vulcan" ] );
+
+                    expect( collection.toArray() ).toBe( expected );
+                } );
+
+                it( "can also accept a list instead of an array of values", function() {
+                    var data = [
+                        { id = 1, name = "James T. Kirk", rank = "Captain", species = "Human" },
+                        { id = 2, name = "Spock", rank = "Commander", species = "Vulcan" },
+                        { id = 3, name = "Odo", rank = "Constable", species = "Changeling" },
+                        { id = 4, name = "Jonathan Archer", rank = "Captain", species = "Human" }
+                    ];
+                    var expected = [
+                        { id = 3, name = "Odo", rank = "Constable", species = "Changeling" }
+                    ];
+
+                    var collection = new models.Collection( data );
+                    collection = collection.whereNot( "species", "Human, Vulcan" );
+
+                    expect( collection.toArray() ).toBe( expected );
+                } );
+            } );
         } );
 
         describe( "functions that return a non-collection value", function() {
