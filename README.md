@@ -433,6 +433,38 @@ collection.count();
 // 4
 ```
 
+### countWhere
+Shortcut for `where` and `count`.
+
+```cfc
+var collection = new models.Collection( [
+    { id = 1, name = "James T. Kirk", rank = "Captain", species = "Human" },
+    { id = 2, name = "Spock", rank = "Commander", species = "Vulcan" },
+    { id = 3, name = "Odo", rank = "Constable", species = "Changeling" },
+    { id = 4, name = "Jonathan Archer", rank = "Captain", species = "Human" }
+] );
+
+collection.countWhere( "species", "Vulcan" );
+
+// 1
+```
+
+### countWhereNot
+Shortcut for `whereNot` and `count`.
+
+```cfc
+var collection = new models.Collection( [
+    { id = 1, name = "James T. Kirk", rank = "Captain", species = "Human" },
+    { id = 2, name = "Spock", rank = "Commander", species = "Vulcan" },
+    { id = 3, name = "Odo", rank = "Constable", species = "Changeling" },
+    { id = 4, name = "Jonathan Archer", rank = "Captain", species = "Human" }
+] );
+
+collection.countWhereNot( "species", "Vulcan" );
+
+// 3
+```
+
 ### length
 Alias for `count`.  Returns the number of elements in the collection.
 
