@@ -91,6 +91,12 @@ component {
         return collect( results );
     }
 
+    public Collection function reject( required predicate ) {
+        return this.filter( function( item ) {
+            return ! predicate( item );
+        } );
+    }
+
     public Collection function unique( any column = "" ) {
         var autoColumn = false;
         if ( isSimpleValue( column ) && column == "" ) {

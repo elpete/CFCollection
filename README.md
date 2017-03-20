@@ -166,6 +166,27 @@ collection.filter( function( item ) {
 // ]
 ```
 
+### reject
+Returns a new collection where the predicate function provided returns false.
+
+```cfc
+var collection = new Collection( [
+    { label = "A", value = 1 },
+    { label = "B", value = 2 },
+    { label = "C", value = 3 },
+    { label = "D", value = 4 }
+] );
+
+collection.reject( function( item ) {
+    return item.value % 2 == 0;
+} );
+
+// [
+//     { label = "A", value = 1 },
+//     { label = "C", value = 3 }
+// ]
+```
+
 ### unique
 Returns a new collection with only unique items.  The first unique item is used.  Key order is not guaranteed.
 If no arguments are provided, a simple array is assumed.

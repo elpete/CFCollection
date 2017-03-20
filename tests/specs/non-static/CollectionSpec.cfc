@@ -259,6 +259,27 @@ component extends="testbox.system.BaseSpec" {
                 expect( collection.toArray() ).toBe( expected );
             } );
 
+            describe( "reject", function() {
+                it( "returns a collection of values that did NOT pass the predicate function", function() {
+                    var data = [
+                        { label = "A", value = 1 },
+                        { label = "B", value = 2 },
+                        { label = "C", value = 3 },
+                        { label = "D", value = 4 }
+                    ];
+                    var expected = [
+                        { label = "A", value = 1 },
+                        { label = "C", value = 3 }
+                    ];
+
+                    var collection = new models.Collection( data );
+                    collection = collection.reject( function( item ) {
+                        return item.value % 2 == 0;
+                    } );
+                    expect( collection.toArray() ).toBe( expected );
+                } );
+            } );
+
             describe( "unique", function() {
                 it( "filters out duplicate items", function() {
                     var data = [ 1, 2, 1, 1, 1, 4, 3, 4 ];
