@@ -342,10 +342,26 @@ collection.where( "species", "Human" );
 //     { id = 1, name = "James T. Kirk", rank = "Captain", species = "Human" },
 //     { id = 4, name = "Jonathan Archer", rank = "Captain", species = "Human" }
 // ];
+```
 
-var collection = new models.Collection( data );
+### whereNot
+Shortcut for `reject`.  Accepts a `key` and `value` to apply to `reject`.
+`value` can be a single value, a list, or an array of values where the collection value can match any of the values provided.
 
-expect( collection.toArray() ).toBe( expected );
+```cfc
+var collection = new models.Collection( [
+    { id = 1, name = "James T. Kirk", rank = "Captain", species = "Human" },
+    { id = 2, name = "Spock", rank = "Commander", species = "Vulcan" },
+    { id = 3, name = "Odo", rank = "Constable", species = "Changeling" },
+    { id = 4, name = "Jonathan Archer", rank = "Captain", species = "Human" }
+] );
+
+collection.whereNot( "species", "Human" );
+
+// [
+//     { id = 2, name = "Spock", rank = "Commander", species = "Vulcan" },
+//     { id = 3, name = "Odo", rank = "Constable", species = "Changeling" }
+// ];
 ```
 
 
