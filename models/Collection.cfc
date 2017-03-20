@@ -269,6 +269,14 @@ component {
         return arrayLen( collection );
     }
 
+    public numeric function countWhere( required string key, required any value ) {
+        return this.where( argumentCollection = arguments ).count();
+    }
+
+    public numeric function countWhereNot( required string key, required any value ) {
+        return this.whereNot( argumentCollection = arguments ).count();
+    }
+
     public numeric function length() {
         return this.count();
     }

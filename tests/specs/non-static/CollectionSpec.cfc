@@ -741,6 +741,96 @@ component extends="testbox.system.BaseSpec" {
                         expect( actual ).toBe( expected );
                     } );
                 } );
+
+                describe( "where derivitives", function() {
+                    describe( "countWhere", function() {
+                            it( "is a shortcut for where and count", function() {
+                            var data = [
+                                { id = 1, name = "James T. Kirk", rank = "Captain", species = "Human" },
+                                { id = 2, name = "Spock", rank = "Commander", species = "Vulcan" },
+                                { id = 3, name = "Odo", rank = "Constable", species = "Changeling" },
+                                { id = 4, name = "Jonathan Archer", rank = "Captain", species = "Human" }
+                            ];
+
+                            var collection = new models.Collection( data );
+                            var result = collection.countWhere( "species", "Human" );
+
+                            expect( result ).toBe( 2 );
+                        } );
+
+                        it( "can accept an array of values to check against ( like an IN statement)", function() {
+                            var data = [
+                                { id = 1, name = "James T. Kirk", rank = "Captain", species = "Human" },
+                                { id = 2, name = "Spock", rank = "Commander", species = "Vulcan" },
+                                { id = 3, name = "Odo", rank = "Constable", species = "Changeling" },
+                                { id = 4, name = "Jonathan Archer", rank = "Captain", species = "Human" }
+                            ];
+
+                            var collection = new models.Collection( data );
+                            var result = collection.countWhere( "species", [ "Human", "Vulcan" ] );
+
+                            expect( result ).toBe( 3 );
+                        } );
+
+                        it( "can also accept a list instead of an array of values", function() {
+                            var data = [
+                                { id = 1, name = "James T. Kirk", rank = "Captain", species = "Human" },
+                                { id = 2, name = "Spock", rank = "Commander", species = "Vulcan" },
+                                { id = 3, name = "Odo", rank = "Constable", species = "Changeling" },
+                                { id = 4, name = "Jonathan Archer", rank = "Captain", species = "Human" }
+                            ];
+
+                            var collection = new models.Collection( data );
+                            var result = collection.countWhere( "species", "Human, Vulcan" );
+
+                            expect( result ).toBe( 3 );
+                        } );
+                    } );
+
+                    describe( "countWhereNot", function() {
+                            it( "is a shortcut for whereNot and count", function() {
+                            var data = [
+                                { id = 1, name = "James T. Kirk", rank = "Captain", species = "Human" },
+                                { id = 2, name = "Spock", rank = "Commander", species = "Vulcan" },
+                                { id = 3, name = "Odo", rank = "Constable", species = "Changeling" },
+                                { id = 4, name = "Jonathan Archer", rank = "Captain", species = "Human" }
+                            ];
+
+                            var collection = new models.Collection( data );
+                            var result = collection.countWhereNot( "species", "Human" );
+
+                            expect( result ).toBe( 2 );
+                        } );
+
+                        it( "can accept an array of values to check against ( like an IN statement)", function() {
+                            var data = [
+                                { id = 1, name = "James T. Kirk", rank = "Captain", species = "Human" },
+                                { id = 2, name = "Spock", rank = "Commander", species = "Vulcan" },
+                                { id = 3, name = "Odo", rank = "Constable", species = "Changeling" },
+                                { id = 4, name = "Jonathan Archer", rank = "Captain", species = "Human" }
+                            ];
+
+                            var collection = new models.Collection( data );
+                            var result = collection.countWhereNot( "species", [ "Human", "Vulcan" ] );
+
+                            expect( result ).toBe( 1 );
+                        } );
+
+                        it( "can also accept a list instead of an array of values", function() {
+                            var data = [
+                                { id = 1, name = "James T. Kirk", rank = "Captain", species = "Human" },
+                                { id = 2, name = "Spock", rank = "Commander", species = "Vulcan" },
+                                { id = 3, name = "Odo", rank = "Constable", species = "Changeling" },
+                                { id = 4, name = "Jonathan Archer", rank = "Captain", species = "Human" }
+                            ];
+
+                            var collection = new models.Collection( data );
+                            var result = collection.countWhereNot( "species", "Human, Vulcan" );
+
+                            expect( result ).toBe( 1 );
+                        } );
+                    } );
+                } );
             } );
 
             describe( "first", function() {
