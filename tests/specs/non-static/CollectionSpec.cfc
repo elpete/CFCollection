@@ -24,6 +24,22 @@ component extends="testbox.system.BaseSpec" {
                 expect( collection.toArray() ).toBe( data );
             } );
 
+            it( "can return a new collection from the `collect` function", function() {
+                var data = [ 1, 2, 3, 4 ];
+                var collection = createObject( "component", "models.Collection" ).collect( data );
+
+                expect( collection.toArray() ).toBe( data );
+            } );
+
+            it( "returns the passed in value untouched if it is already a collection", function() {
+                var data = [ 1, 2, 3, 4 ];
+                var originalCollection = new models.Collection( data );
+
+                var newCollection = new models.Collection( originalCollection );
+
+                expect( newCollection ).toBe( originalCollection );
+            } );
+
             describe( "keys", function() {
                 it( "returns the keys of a struct as a collection", function() {
                     var obj = { "A" = 1, "B" = 2, "C" = 3 };
