@@ -603,7 +603,25 @@ component extends="testbox.system.BaseSpec" {
                     ];
 
                     var collection = new models.Collection( data );
-                    collection = collection.where( "species", "Human, Vulcan" );
+                    collection = collection.where( "species", "Human,Vulcan" );
+
+                    expect( collection.toArray() ).toBe( expected );
+                } );
+
+                it( "can check against an empty string", function() {
+                    var data = [
+                        { id = 1, active = "" },
+                        { id = 2, active = "N" },
+                        { id = 3, active = "N" },
+                        { id = 4, active = "" }
+                    ];
+                    var expected = [
+                        { id = 1, active = "" },
+                        { id = 4, active = "" }
+                    ];
+
+                    var collection = new models.Collection( data );
+                    collection = collection.where( "active", "" );
 
                     expect( collection.toArray() ).toBe( expected );
                 } );
@@ -657,7 +675,7 @@ component extends="testbox.system.BaseSpec" {
                     ];
 
                     var collection = new models.Collection( data );
-                    collection = collection.whereNot( "species", "Human, Vulcan" );
+                    collection = collection.whereNot( "species", "Human,Vulcan" );
 
                     expect( collection.toArray() ).toBe( expected );
                 } );
@@ -781,7 +799,7 @@ component extends="testbox.system.BaseSpec" {
                             ];
 
                             var collection = new models.Collection( data );
-                            var result = collection.countWhere( "species", "Human, Vulcan" );
+                            var result = collection.countWhere( "species", "Human,Vulcan" );
 
                             expect( result ).toBe( 3 );
                         } );
@@ -825,7 +843,7 @@ component extends="testbox.system.BaseSpec" {
                             ];
 
                             var collection = new models.Collection( data );
-                            var result = collection.countWhereNot( "species", "Human, Vulcan" );
+                            var result = collection.countWhereNot( "species", "Human,Vulcan" );
 
                             expect( result ).toBe( 1 );
                         } );

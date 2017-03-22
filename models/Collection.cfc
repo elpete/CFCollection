@@ -230,13 +230,17 @@ component {
 
     public Collection function where( required string key, required any value ) {
         return this.filter( function( item ) {
-            return listContainsNoCase( normalizeToList( value ), item[ key ] );
+            return collect( normalizeToArray( value ) ).has( function( val ) {
+                return val == item[ key ];
+            } );
         } );
     }
 
     public Collection function whereNot( required string key, required any value ) {
         return this.reject( function( item ) {
-            return listContainsNoCase( normalizeToList( value ), item[ key ] );
+            return collect( normalizeToArray( value ) ).has( function( val ) {
+                return val == item[ key ];
+            } );
         } );
     }
 
