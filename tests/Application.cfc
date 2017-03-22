@@ -4,5 +4,6 @@ component {
     this.mappings["/tests"] = getDirectoryFromPath( getCurrentTemplatePath() );
     rootPath = REReplaceNoCase( this.mappings[ "/tests" ], "tests(\\|/)", "" );
     this.mappings[ "/root" ] = rootPath;
+    this.mappings[ "/cfcollection" ] = rootPath;
 
 }

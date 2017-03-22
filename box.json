@@ -41,6 +41,10 @@
         "testbox":"^2.3.0+00044"
     },
     "installPaths":{
-        "testbox":"testbox"
+        "testbox":"testbox",
+        "normalizeToArray":"modules/normalizeToArray"
+    },
+    "dependencies":{
+        "normalizeToArray":"^1.0.2"
     }
 }

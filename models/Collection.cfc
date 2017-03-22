@@ -1,5 +1,7 @@
 component {
 
+    include "../modules/normalizeToArray/functions/normalizeToArray.cfm";
+
     variables.collection = [];
 
     public Collection function init( any collection = [] ) {
@@ -146,7 +148,7 @@ component {
                 return [ item1, item2 ];
             };
         }
-        newCollection = normalizeToArray( newCollection );
+        newCollection = normalizeToArray( newCollection.toArray() );
 
         if ( this.count() != arrayLen( newCollection ) ) {
             throw(
@@ -190,6 +192,9 @@ component {
 
     public Collection function merge( required any newValues ) {
         var values = this.toArray();
+        if ( isInstanceOf( newValues, "Collection" ) ) {
+            newValues = newValues.toArray();
+        }
         for ( var value in normalizeToArray( newValues ) ) {
             arrayAppend( values, value );
         }
@@ -355,36 +360,9 @@ component {
         return newCollection;
     }
 
-    private array function normalizeToArray( required any collection = [] ) {
-        if ( isInstanceOf( collection, "models.Collection" ) ) {
-            return collection.toArray();
-        }
-
-        collection = duplicate( collection );
-
-        if ( isArray( collection ) ) {
-            return collection;
-        }
-
-        if ( isQuery( collection ) ) {
-            return queryToArray( collection );
-        }
-
-        return listToArray( collection );
-    }
-
     private string function normalizeToList( required any values ) {
         return arrayToList( normalizeToArray( values ) );
     }
-
-    private array function queryToArray( required query q ) {
-        var arr = [];
-        for ( var row in q ) {
-            arrayAppend( arr, row );
-        }
-        return arr;
-    }
-
 
     private function _flatten( arr, depth = 0 ) {
         var results = [];
