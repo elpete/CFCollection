@@ -336,12 +336,18 @@ component {
         return callback( this );
     }
 
-    public boolean function has( callback ) {
+    public boolean function has( callback, value ) {
+        if ( isSimpleValue( callback ) ) {
+            var key = callback;
+            callback = function( item ) {
+                return item[ key ] == value;
+            };
+        }
         return ! this.filter( callback ).empty();
     }
 
-    public boolean function any( callback ) {
-        return this.has( callback );
+    public boolean function any( callback, value ) {
+        return this.has( argumentCollection = arguments );
     }
 
     public boolean function every( callback ) {

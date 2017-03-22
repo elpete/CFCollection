@@ -650,6 +650,21 @@ collection.has( function( crewMember ) {
 // true
 ```
 
+Can also accept a key / value pair as arguments to search.
+
+```cfc
+var collection = new models.Collection( [
+    { id = 1, name = "James T. Kirk", rank = "Captain", species = "Human" },
+    { id = 2, name = "Spock", rank = "Commander", species = "Vulcan" },
+    { id = 3, name = "Odo", rank = "Constable", species = "Changeling" },
+    { id = 4, name = "Jonathan Archer", rank = "Captain", species = "Human" }
+] );
+
+collection.has( "species", "Vulcan" );
+
+// true
+```
+
 ### any
 Alias for `has`. Returns true if any item in the collection returns true from the predicate function.
 

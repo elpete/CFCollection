@@ -1061,36 +1061,52 @@ component extends="testbox.system.BaseSpec" {
                 expect( isCollection ).toBeTrue( "The value passed in to the pipe callback should be a Collection." );
             } );
 
-            it( "has", function() {
-                var data = [
-                    { id = 1, name = "James T. Kirk", rank = "Captain", species = "Human" },
-                    { id = 2, name = "Spock", rank = "Commander", species = "Vulcan" },
-                    { id = 3, name = "Odo", rank = "Constable", species = "Changeling" },
-                    { id = 4, name = "Jonathan Archer", rank = "Captain", species = "Human" }
-                ];
+            describe( "has", function() {
+                it( "accepts a callback to determine if any record in the collection matches the predicate", function() {
+                    var data = [
+                        { id = 1, name = "James T. Kirk", rank = "Captain", species = "Human" },
+                        { id = 2, name = "Spock", rank = "Commander", species = "Vulcan" },
+                        { id = 3, name = "Odo", rank = "Constable", species = "Changeling" },
+                        { id = 4, name = "Jonathan Archer", rank = "Captain", species = "Human" }
+                    ];
 
-                var collection = new models.Collection( data );
-                var actual = collection.has( function( crewMember ) {
-                    return crewMember.species == "Vulcan";
+                    var collection = new models.Collection( data );
+                    var actual = collection.has( function( crewMember ) {
+                        return crewMember.species == "Vulcan";
+                    } );
+
+                    expect( actual ).toBeTrue();
                 } );
 
-                expect( actual ).toBeTrue();
-            } );
+                it( "can accept a simple key and value to check instead of a callback", function() {
+                    var data = [
+                        { id = 1, name = "James T. Kirk", rank = "Captain", species = "Human" },
+                        { id = 2, name = "Spock", rank = "Commander", species = "Vulcan" },
+                        { id = 3, name = "Odo", rank = "Constable", species = "Changeling" },
+                        { id = 4, name = "Jonathan Archer", rank = "Captain", species = "Human" }
+                    ];
 
-            it( "any (alias for has)", function() {
-                var data = [
-                    { id = 1, name = "James T. Kirk", rank = "Captain", species = "Human" },
-                    { id = 2, name = "Spock", rank = "Commander", species = "Vulcan" },
-                    { id = 3, name = "Odo", rank = "Constable", species = "Changeling" },
-                    { id = 4, name = "Jonathan Archer", rank = "Captain", species = "Human" }
-                ];
+                    var collection = new models.Collection( data );
 
-                var collection = new models.Collection( data );
-                var actual = collection.any( function( crewMember ) {
-                    return crewMember.species == "Vulcan";
+                    expect( collection.has( "species", "Vulcan" ) ).toBeTrue();
+                    expect( collection.has( "species", "Trill" ) ).toBeFalse();
                 } );
 
-                expect( actual ).toBeTrue();
+                it( "any (alias for has)", function() {
+                    var data = [
+                        { id = 1, name = "James T. Kirk", rank = "Captain", species = "Human" },
+                        { id = 2, name = "Spock", rank = "Commander", species = "Vulcan" },
+                        { id = 3, name = "Odo", rank = "Constable", species = "Changeling" },
+                        { id = 4, name = "Jonathan Archer", rank = "Captain", species = "Human" }
+                    ];
+
+                    var collection = new models.Collection( data );
+                    var actual = collection.any( function( crewMember ) {
+                        return crewMember.species == "Vulcan";
+                    } );
+
+                    expect( actual ).toBeTrue();
+                } );
             } );
 
             it( "every", function() {
