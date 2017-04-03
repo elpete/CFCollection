@@ -799,7 +799,7 @@ component extends="testbox.system.BaseSpec" {
                             ];
 
                             var collection = new models.Collection( data );
-                            var result = collection.countWhere( "species", "Human,Vulcan" );
+                            var result = collection.countWhere( "species", "Human, Vulcan" );
 
                             expect( result ).toBe( 3 );
                         } );
@@ -843,7 +843,7 @@ component extends="testbox.system.BaseSpec" {
                             ];
 
                             var collection = new models.Collection( data );
-                            var result = collection.countWhereNot( "species", "Human,Vulcan" );
+                            var result = collection.countWhereNot( "species", "Human, Vulcan" );
 
                             expect( result ).toBe( 1 );
                         } );

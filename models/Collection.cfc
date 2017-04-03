@@ -244,6 +244,12 @@ component {
         } );
     }
 
+    public Collection function whereNot( required string key, required any value ) {
+        return this.reject( function( item ) {
+            return listContainsNoCase( normalizeToList( value ), item[ key ] );
+        } );
+    }
+
     /* Returns a non-collection value */
 
     public boolean function empty() {
