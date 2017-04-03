@@ -36,7 +36,7 @@ component {
     // Imperative Methods
 
     public Collection function each( callback ) {
-        ArrayEach( collection.toArray(), callback );
+        arrayEach( collection.toArray(), callback );
 
         return this;
     }
@@ -242,6 +242,19 @@ component {
                 return val == item[ key ];
             } );
         } );
+    }
+    /* Returns a Pipeline function */
+
+    public any function when( required boolean condition, required any callback, any defaultCallback ) {
+        if ( condition ) {
+            return callback( this );
+        } 
+        else if ( ! isNull( defaultCallback ) ) {
+            return defaultCallback( this );
+        } 
+        else {
+            return this;
+        }
     }
 
     public Collection function whereNot( required string key, required any value ) {
