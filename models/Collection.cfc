@@ -29,11 +29,9 @@ component {
         return collect( arr );
     }
 
-    public array function toArray() {
-        return duplicate( collection );
-    }
-
-    // Imperative Methods
+    /*==========================================
+    =            Imperative Methods            =
+    ==========================================*/
 
     public Collection function each( callback ) {
         arrayEach( collection.toArray(), callback );
@@ -257,7 +255,29 @@ component {
         }
     }
 
-    /* Returns a non-collection value */
+    /*======================================================
+    =            Returns a non-collection value            =
+    ======================================================*/
+    
+    public any function get( index, defaultValue ) {
+        if ( isNull( index ) ) {
+            return toArray();
+        }
+
+        try {
+            return collection[ index ];
+        }
+        catch ( any e ) {
+            if ( ! isNull( defaultValue ) ) {
+                return defaultValue;
+            }
+            rethrow;
+        }
+    }   
+
+    public array function toArray() {
+        return duplicate( collection );
+    }
 
     public boolean function empty() {
         return arrayIsEmpty( collection );
