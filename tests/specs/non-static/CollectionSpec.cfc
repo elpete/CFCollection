@@ -665,6 +665,35 @@ component extends="testbox.system.BaseSpec" {
         } );
 
         describe( "functions that return a non-collection value", function() {
+            describe( "get", function() {
+                it( "returns the collection as an array when called with no parameters", function() {
+                    var data = [ 1, 2, 3, 4 ];
+
+                    var collection = new models.Collection( data );
+                    var actual = collection.get();
+
+                    expect( actual ).toBe( data );
+                } );
+
+                it( "returns the value at the specific index when passed an index", function() {
+                    var data = [ 1, 2, 3, 4 ];
+
+                    var collection = new models.Collection( data );
+                    var actual = collection.get( 2 );
+
+                    expect( actual ).toBe( 2 );
+                } );
+
+                it( "it returns the default value if the specified index does not exist", function() {
+                    var data = [ 1, 2, 3, 4 ];
+
+                    var collection = new models.Collection( data );
+                    var actual = collection.get( 5, "foo" );
+
+                    expect( actual ).toBe( "foo" );
+                } );
+            } );
+
             it( "reduce", function() {
                 var data = [ 1, 2, 3, 4 ];
                 var expected = 10;
