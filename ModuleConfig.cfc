@@ -5,6 +5,7 @@ component {
     this.description = "An array wrapper for functional programming";
     this.version = "1.0.0";
     this.autoMapModels = false;
+    this.cfmapping = "cfcollection";
 
     function configure() {
         binder.map( "Collection" )
