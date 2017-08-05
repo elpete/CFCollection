@@ -335,12 +335,18 @@ component {
         return accumulator;
     }
 
-    public struct function groupBy( required string key ) {
+    public struct function groupBy( required string key, boolean forceLookup = false ) {
         return this.reduce( function( acc, item ) {
-            if ( ! structKeyExists( acc, item[ key ] ) ) {
-                acc[ item[ key ] ] = [];
+            if ( ( isObject( item ) && structKeyExists( item, "get#key#" ) ) || forceLookup ) {
+                var value = invoke( item, "get#key#" );
             }
-            arrayAppend( acc[ item[ key ] ], item );
+            else {
+                var value = item[ key ];
+            }
+            if ( ! structKeyExists( acc, value ) ) {
+                acc[ value ] = [];
+            }
+            arrayAppend( acc[ value ], item );
             return acc;
         }, {} );
     }
