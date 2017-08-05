@@ -10,7 +10,7 @@ component {
     }
 
     public Collection function collect( any items = [] ) {
-        return new Collection( items );
+        return new "#getMetadata( this ).fullName#"( items );
     }
 
     public any function getCollectFunction() {
