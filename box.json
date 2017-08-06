@@ -1,8 +1,8 @@
 {
     "name":"CFCollection",
-    "version":"2.10.1",
+    "version":"2.10.2",
     "author":"Eric Peterson",
-    "location":"elpete/cfcollection#v2.10.1",
+    "location":"elpete/cfcollection#v2.10.2",
     "homepage":"https://github.com/elpete/cfcollection",
     "documentation":"https://github.com/elpete/cfcollection",
     "repository":{
