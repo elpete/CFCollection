@@ -34,6 +34,25 @@ var collection = wirebox.getInstance(
 );
 ```
 
+### get
+Returns the entire collection as an array, a specific index of the collection, or a default value if the specific index doesn't exist.
+
+```cfc
+var collection = new Collection( [ 1, 2, 3, 4 ] );
+
+collection.get();
+
+// [ 1, 2, 3, 4 ]
+
+collection.get( 2 );
+
+// 2
+
+collection.get( 5, "whoops!" );
+
+// "whoops!"
+```
+
 ### toArray
 Returns the value of the collection as an array.
 
@@ -503,6 +522,8 @@ collection.reduce( function( acc, num ) {
 
 ### groupBy
 Returns a struct where the keys are the value of the field passed in and the values are collection items that share the same value of the given key.
+
+The key can be the name of a property. The accessor will be called behind the scenes.
 
 ```cfc
 var collection = new models.Collection( [
