@@ -1,8 +1,8 @@
 {
     "name":"CFCollection",
-    "version":"2.10.0",
+    "version":"2.10.1",
     "author":"Eric Peterson",
-    "location":"elpete/cfcollection#v2.10.0",
+    "location":"elpete/cfcollection#v2.10.1",
     "homepage":"https://github.com/elpete/cfcollection",
     "documentation":"https://github.com/elpete/cfcollection",
     "repository":{
@@ -47,7 +47,7 @@
     "dependencies":{
         "normalizeToArray":"^1.0.2"
     },
-    "testbox": {
-        "directory": "tests.specs.non-static"
+    "testbox":{
+        "directory":"tests.specs.non-static"
     }
 }
