@@ -10,7 +10,7 @@ component {
     }
 
     public Collection function collect( any items = [] ) {
-        return new "#getMetadata( this ).fullName#"( items );
+        return new Collection( items );
     }
 
     public any function getCollectFunction() {
@@ -184,7 +184,7 @@ component {
         }
 
         arraySort( collection, callback );
-        
+
         return collect( collection );
     }
 
@@ -246,10 +246,10 @@ component {
     public any function when( required boolean condition, required any callback, any defaultCallback ) {
         if ( condition ) {
             return callback( this );
-        } 
+        }
         else if ( ! isNull( defaultCallback ) ) {
             return defaultCallback( this );
-        } 
+        }
         else {
             return this;
         }
@@ -258,7 +258,7 @@ component {
     /*======================================================
     =            Returns a non-collection value            =
     ======================================================*/
-    
+
     public any function get( index, defaultValue ) {
         if ( isNull( index ) ) {
             return toArray();
@@ -273,7 +273,7 @@ component {
             }
             rethrow;
         }
-    }   
+    }
 
     public array function toArray() {
         return duplicate( collection );
@@ -415,7 +415,7 @@ component {
 
     private function _flatten( arr, depth = 0 ) {
         var results = [];
-        
+
         for ( var item in arr ) {
             if ( depth == 1 ) {
                 results = arrayMerge( results, item );

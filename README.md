@@ -17,6 +17,8 @@ Injecting this will give you access to an instance of Collection.  You can start
 #### `collect` & `collect@CFCollection`
 Injecting this will give you direct access to the `collect` method.
 
+**Note:** If you are subclassing `Collection`, you will need to override this method to return your subclass.
+
 ## Methods
 
 ### init
