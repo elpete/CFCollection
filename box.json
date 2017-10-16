@@ -35,7 +35,8 @@
     "ignore":[
         "**/.*",
         "test",
-        "tests"
+        "tests",
+        "gulpfile.json"
     ],
     "devDependencies":{
         "testbox":"^2.3.0+00044"
