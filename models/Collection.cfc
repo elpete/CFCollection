@@ -215,6 +215,11 @@ component {
         } );
     }
 
+    public Collection function tap( callback ) {
+        callback( this );
+        return this;
+    }
+
     /* Returns a non-collection value */
 
     public boolean function empty() {
