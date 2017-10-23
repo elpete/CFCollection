@@ -715,6 +715,33 @@ collection.every( function( crewMember ) {
 // false
 ```
 
+### tap
+Provides a way to have side effects for collections without modifying the actual collection.
+
+```cfc
+collect( [ 1, 2, 3, 4 ] )
+    .tap( function( c ) {
+        writeDump( c.toArray() );
+    } )
+    .map( function( item ) {
+        return item * 2;
+    } )
+    .tap( function( c ) {
+        writeDump( c.toArray() );
+    } )
+    .filter( function( item ) {
+        return item % 4 == 0;
+    } )
+    .tap( function( c ) {
+        writeDump( c.toArray() );
+    } );
+
+// This would dump out:
+// [ 1, 2, 3, 4 ]
+// [ 2, 4, 6, 8 ]
+// [ 4, 8 ]
+```
+
 ## Static Support
 
 If your CFML engine supports static scopes and functions, you have some additional functionality available to you in the `MacroableCollection` component.  This component will be returned by default if you are using WireBox.
