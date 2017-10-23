@@ -248,11 +248,10 @@ component {
             start = 0;
         }
         step = !isDefined( "step" ) ? (start < end ? 1 : -1) : step;
-        var index = 1;
         var length = max( ceiling( ( abs( end ) - start ) / ( step || 1 ) ), 0 );
         var collection = [];
         while ( length-- ) {
-            collection[ index++ ] = start;
+            arrayAppend( collection, start );
             start = ( sgn( end ) == -1 ) ? start - abs( step ) : start + step;
         }
         return collect( collection );
