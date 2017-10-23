@@ -26,6 +26,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "tonyjunkes",
+      "name": "Tony Junkes",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/3632399?v=4",
+      "profile": "http://tonyjunkes.com",
+      "contributions": [
+        "code",
+        "test"
+      ]
     }
   ]
 }
