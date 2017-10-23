@@ -680,6 +680,21 @@ component extends="testbox.system.BaseSpec" {
                     expect( collection.toArray() ).toBe( expected );
                 } );
             } );
+
+            it( "range", function() {
+                var collection = new models.Collection();
+
+                expect( collection.range( 4 ).toArray() ).toBe( [ 0, 1, 2, 3 ] );
+                expect( collection.range( -4 ).toArray() ).toBe( [ 0, -1, -2, -3 ] );
+                expect( collection.range( -0, 4 ).toArray() ).toBe( [ -0, 1, 2, 3 ] );
+                expect( collection.range( 1, 5 ).toArray() ).toBe( [ 1, 2, 3, 4 ] );
+                expect( collection.range( 0, 4, 5 ).toArray() ).toBe( [ 0, 5, 10, 15 ] );
+                expect( collection.range( 0, -4, -1 ).toArray() ).toBe( [ 0, -1, -2, -3 ] );
+                expect( collection.range( 1, 4, 0 ).toArray() ).toBe( [ 1, 1, 1 ] );
+                expect( collection.range( -4, 0, 0 ).toArray() ).toBe( [ -4, -4, -4, -4 ] );
+                expect( collection.range( -4, 0 ).toArray() ).toBe( [ -4, -3, -2, -1 ] );
+                expect( collection.range( 0 ).toArray() ).toBe( [] );
+            } );
         } );
 
         describe( "pipeline functions", function() {

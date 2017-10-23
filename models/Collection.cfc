@@ -28,6 +28,21 @@ component {
         }
         return collect( arr );
     }
+    
+    public Collection function range( numeric start, numeric end, numeric step ) {
+        if ( isNull( end ) ) {
+            end = start;
+            start = 0;
+        }
+        step = isNull( step ) ? (start < end ? 1 : -1) : step;
+        var length = max( ceiling( ( abs( end ) - start ) / ( step || 1 ) ), 0 );
+        var collection = [];
+        while ( length-- ) {
+            arrayAppend( collection, start );
+            start = ( sgn( end ) == -1 ) ? start - abs( step ) : start + step;
+        }
+        return collect( collection );
+    }
 
     /*==========================================
     =            Imperative Methods            =

@@ -715,6 +715,34 @@ collection.every( function( crewMember ) {
 // false
 ```
 
+### range
+Returns an array of numbers progressing from start up to, but not including, end. A step of -1 will be used if a negative value is specified in start and the value of end or step is undefined. If end is undefined, it's set to start with start then set to 0.
+
+```cfc
+var collection = new models.Collection();
+
+collection.range( 4 );
+// [ 0, 1, 2, 3 ]
+ 
+collection.range( -4 );
+// [ 0, -1, -2, -3 ]
+ 
+collection.range( 1, 4 );
+// [ 1, 2, 3, 4 ]
+ 
+collection.range(0, 4, 10);
+// [ 0, 10, 20, 30 ]
+ 
+collection.range( 0, -4, -1 );
+// [ 0, -1, -2, -3 ]
+ 
+collection.range( 1, 4, 0 );
+// [ 1, 1, 1 ]
+ 
+collection.range( 0 );
+// []
+```
+
 ### tap
 Provides a way to have side effects for collections without modifying the actual collection.
 
