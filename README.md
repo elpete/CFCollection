@@ -721,19 +721,19 @@ Provides a way to have side effects for collections without modifying the actual
 ```cfc
 collect( [ 1, 2, 3, 4 ] )
     .tap( function( c ) {
-        writeDump( c.toArray() );
+        writeDump( c.get() );
     } )
     .map( function( item ) {
         return item * 2;
     } )
     .tap( function( c ) {
-        writeDump( c.toArray() );
+        writeDump( c.get() );
     } )
     .filter( function( item ) {
         return item % 4 == 0;
     } )
     .tap( function( c ) {
-        writeDump( c.toArray() );
+        writeDump( c.get() );
     } );
 
 // This would dump out:
