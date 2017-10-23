@@ -1,5 +1,5 @@
 # CFCollection
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
 
 ## An array wrapper for functional programming
 
@@ -743,6 +743,33 @@ collection.range( 0 );
 // []
 ```
 
+### tap
+Provides a way to have side effects for collections without modifying the actual collection.
+
+```cfc
+collect( [ 1, 2, 3, 4 ] )
+    .tap( function( c ) {
+        writeDump( c.get() );
+    } )
+    .map( function( item ) {
+        return item * 2;
+    } )
+    .tap( function( c ) {
+        writeDump( c.get() );
+    } )
+    .filter( function( item ) {
+        return item % 4 == 0;
+    } )
+    .tap( function( c ) {
+        writeDump( c.get() );
+    } );
+
+// This would dump out:
+// [ 1, 2, 3, 4 ]
+// [ 2, 4, 6, 8 ]
+// [ 4, 8 ]
+```
+
 ## Static Support
 
 If your CFML engine supports static scopes and functions, you have some additional functionality available to you in the `MacroableCollection` component.  This component will be returned by default if you are using WireBox.
@@ -788,8 +815,8 @@ collection.max();
 Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-| [<img src="https://avatars1.githubusercontent.com/u/2583646?v=4" width="100px;"/><br /><sub>Eric Peterson</sub>](https://github.com/elpete)<br />[💻](https://github.com/elpete/CFCollection/commits?author=elpete "Code") [📖](https://github.com/elpete/CFCollection/commits?author=elpete "Documentation") [⚠️](https://github.com/elpete/CFCollection/commits?author=elpete "Tests") | [<img src="https://avatars3.githubusercontent.com/u/5429198?v=4" width="100px;"/><br /><sub>Mike Burt</sub>](https://github.com/MikeBurt)<br />[💻](https://github.com/elpete/CFCollection/commits?author=MikeBurt "Code") |
-| :---: | :---: |
+| [<img src="https://avatars1.githubusercontent.com/u/2583646?v=4" width="100px;"/><br /><sub>Eric Peterson</sub>](https://github.com/elpete)<br />[💻](https://github.com/elpete/CFCollection/commits?author=elpete "Code") [📖](https://github.com/elpete/CFCollection/commits?author=elpete "Documentation") [⚠️](https://github.com/elpete/CFCollection/commits?author=elpete "Tests") | [<img src="https://avatars3.githubusercontent.com/u/5429198?v=4" width="100px;"/><br /><sub>Mike Burt</sub>](https://github.com/MikeBurt)<br />[💻](https://github.com/elpete/CFCollection/commits?author=MikeBurt "Code") | [<img src="https://avatars1.githubusercontent.com/u/3632399?v=4" width="100px;"/><br /><sub>Tony Junkes</sub>](http://tonyjunkes.com)<br />[💻](https://github.com/elpete/CFCollection/commits?author=tonyjunkes "Code") [⚠️](https://github.com/elpete/CFCollection/commits?author=tonyjunkes "Tests") |
+| :---: | :---: | :---: |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!

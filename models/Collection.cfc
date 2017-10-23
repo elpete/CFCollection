@@ -258,6 +258,11 @@ component {
         return collect( collection );
     }
 
+    public Collection function tap( callback ) {
+        callback( this );
+        return this;
+    }
+
     /* Returns a Pipeline function */
 
     public any function when( required boolean condition, required any callback, any defaultCallback ) {
