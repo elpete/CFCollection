@@ -786,7 +786,7 @@ Adds an item to the beginning of the collection.
 
 ```cfc
 var collection = new models.Collection( [ 2, 3, 4 ] );
-collection.append( 1 );
+collection.prepend( 1 );
 
 writeDump( collection.toArray() );
 // [ 1, 2, 3, 4 ]
