@@ -10,6 +10,12 @@ component {
     }
 
     public Collection function collect( any items = [] ) {
+        if ( structKeyExists( application, "wirebox" ) ) {
+            return application.wirebox.getInstance(
+                name = "Collection@CFCollection",
+                initArguments = { collection = arguments.items }
+            );
+        }
         return new Collection( items );
     }
 
@@ -28,7 +34,7 @@ component {
         }
         return collect( arr );
     }
-    
+
     public Collection function range( numeric start, numeric end, numeric step ) {
         if ( isNull( end ) ) {
             end = start;
