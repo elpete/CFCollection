@@ -93,7 +93,7 @@ component extends="testbox.system.BaseSpec" {
 
                 var collection = new models.Collection( data );
                 var executed = [];
-                collection.each( function( num ) { 
+                collection.each( function( num ) {
                     arrayAppend( executed, num );
                 } );
 
@@ -139,7 +139,7 @@ component extends="testbox.system.BaseSpec" {
                     var expected = [ 1, 2, 3, 4 ];
 
                     var collection = new models.Collection( data );
-                    
+
                     expect( collection.pluck( "value" ).toArray() ).toBe( expected );
                 } );
 
@@ -153,7 +153,7 @@ component extends="testbox.system.BaseSpec" {
                     var expected = [ 1, 2, 3, 4 ];
 
                     var collection = new models.Collection( data );
-                    
+
                     expect( collection.pluck( "value" ).toArray() ).toBe( expected );
                 } );
 
@@ -172,7 +172,7 @@ component extends="testbox.system.BaseSpec" {
                     ];
 
                     var collection = new models.Collection( data );
-                    
+
                     expect( collection.pluck( "value,importance" ).toArray() ).toBe( expected );
                 } );
 
@@ -191,7 +191,7 @@ component extends="testbox.system.BaseSpec" {
                     ];
 
                     var collection = new models.Collection( data );
-                    
+
                     expect( collection.pluck( [ "value", "importance" ] ).toArray() ).toBe( expected );
                 } );
             } );
@@ -237,7 +237,7 @@ component extends="testbox.system.BaseSpec" {
                     return [ point.x, point.y ];
                 } );
 
-                expect( collection.toArray() ).toBe( expected );  
+                expect( collection.toArray() ).toBe( expected );
             } );
 
             it( "filter", function() {
@@ -772,24 +772,25 @@ component extends="testbox.system.BaseSpec" {
             describe( "tap", function() {
                 it( "returns the collection unchanged no matter what code is ran inside the callback", function() {
                     var data = [ 1, 2, 3, 4 ];
+                    var debugged = [];
 
                     var collection = new models.Collection( data );
                     var actual = collection.tap( function( c ) {
-                        debug( c.toArray() );
+                        arrayAppend( debugged, c.toArray() );
                         var doubled = c.map( function( item ) {
                             // This code runs, but should not change the collection.
                             return item * 2;
                         } );
-                        debug( doubled.toArray() );
+                        arrayAppend( debugged, doubled.toArray() );
                         return doubled;
                     } );
 
                     expect( actual ).toBeInstanceOf( "models.Collection", "A collection should be returned" );
                     expect( actual ).toBe( collection, "The same collection should be returned" );
                     expect( actual.toArray() ).toBe( data );
-                    expect( getDebugBuffer() ).toHaveLength( 2, "The callback should have called the debug method twice." );
-                    expect( getDebugBuffer()[ 1 ].data ).toBe( [ 1, 2, 3, 4 ] );
-                    expect( getDebugBuffer()[ 2 ].data ).toBe( [ 2, 4, 6, 8 ] );
+                    expect( debugged ).toHaveLength( 2, "The callback should have called the debug method twice." );
+                    expect( debugged[ 1 ] ).toBe( [ 1, 2, 3, 4 ] );
+                    expect( debugged[ 2 ] ).toBe( [ 2, 4, 6, 8 ] );
                 } );
             } );
         } );
@@ -847,7 +848,7 @@ component extends="testbox.system.BaseSpec" {
                     var expected = '[{"IMPORTANCE":10,"LABEL":"A","VALUE":1},{"IMPORTANCE":20,"LABEL":"B","VALUE":2},{"IMPORTANCE":50,"LABEL":"C","VALUE":3},{"IMPORTANCE":20,"LABEL":"D","VALUE":4}]';
 
                     var collection = new models.Collection( data );
-                    
+
                     expect( deserializeJSON( collection.serialize() ) )
                         .toBe( deserializeJSON( expected ) );
                 } );
@@ -862,7 +863,7 @@ component extends="testbox.system.BaseSpec" {
                     var expected = '[{"IMPORTANCE":10,"VALUE":1},{"IMPORTANCE":20,"VALUE":2},{"IMPORTANCE":50,"VALUE":3},{"IMPORTANCE":20,"VALUE":4}]';
 
                     var collection = new models.Collection( data );
-                    
+
                     expect( deserializeJSON( collection.serialize( [ "value", "importance" ] ) ) )
                         .toBe( deserializeJSON( expected ) );
                 } );
@@ -1006,7 +1007,7 @@ component extends="testbox.system.BaseSpec" {
                 it( "can return a default value if the collection is empty", function() {
                     var collection = new models.Collection();
                     var expected = 5;
-                    
+
                     var actual = collection.first( defaultValue = 5 );
                     expect( actual ).toBe( expected );
                 } );
@@ -1026,7 +1027,7 @@ component extends="testbox.system.BaseSpec" {
                 it( "can accept a function for the default value", function() {
                     var collection = new models.Collection();
                     var expected = "Hello World!";
-                    
+
                     var actual = collection.first( defaultValue = function() {
                         return "Hello World!";
                     } );
@@ -1035,7 +1036,7 @@ component extends="testbox.system.BaseSpec" {
 
                 it( "throws an exception if the collection is empty", function() {
                     var collection = new models.Collection();
-                    
+
                     expect( function() {
                         var actual = collection.first();
                     } ).toThrow( "CollectionIsEmpty" );
@@ -1068,7 +1069,7 @@ component extends="testbox.system.BaseSpec" {
                 it( "can return a default value if the collection is empty", function() {
                     var collection = new models.Collection();
                     var expected = 5;
-                    
+
                     var actual = collection.last( defaultValue = 5 );
                     expect( actual ).toBe( expected );
                 } );
@@ -1088,7 +1089,7 @@ component extends="testbox.system.BaseSpec" {
                 it( "can accept a function for the default value", function() {
                     var collection = new models.Collection();
                     var expected = "Hello World!";
-                    
+
                     var actual = collection.last( defaultValue = function() {
                         return "Hello World!";
                     } );
@@ -1097,7 +1098,7 @@ component extends="testbox.system.BaseSpec" {
 
                 it( "throws an exception if the collection is empty", function() {
                     var collection = new models.Collection();
-                    
+
                     expect( function() {
                         var actual = collection.last();
                     } ).toThrow( "CollectionIsEmpty" );
@@ -1138,7 +1139,7 @@ component extends="testbox.system.BaseSpec" {
 
                     var collection = new models.Collection( data );
                     var actual = collection.sum( "value" );
-                    expect( actual ).toBe( expected );  
+                    expect( actual ).toBe( expected );
                 } );
 
                 it( "doesn't modify the original collection when summing", function() {
@@ -1179,7 +1180,7 @@ component extends="testbox.system.BaseSpec" {
 
                     var collection = new models.Collection( data );
                     var actual = collection.avg( "value" );
-                    expect( actual ).toBe( expected );  
+                    expect( actual ).toBe( expected );
                 } );
 
                 it( "doesn't modify the original collection when averaging", function() {
