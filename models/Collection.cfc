@@ -267,7 +267,7 @@ component {
         callback( this );
         return this;
     }
-    
+
     public Collection function append( required any item ) {
         arrayAppend( variables.collection, item );
         return this;
@@ -454,7 +454,7 @@ component {
     /* Private Methods */
 
     private Collection function clone() {
-        var newCollection = new Collection( this.toArray() );
+        var newCollection = collect( this.toArray() );
         return newCollection;
     }
 
