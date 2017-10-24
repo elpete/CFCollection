@@ -775,8 +775,8 @@ Adds an item to the end of the collection.
 
 ```cfc
 var collection = new models.Collection( [ 1, 2, 3 ] );
-
 collection.append( 4 );
+
 writeDump( collection.toArray() );
 // [ 1, 2, 3, 4 ]
 ```
@@ -786,8 +786,8 @@ Adds an item to the beginning of the collection.
 
 ```cfc
 var collection = new models.Collection( [ 2, 3, 4 ] );
-
 collection.append( 1 );
+
 writeDump( collection.toArray() );
 // [ 1, 2, 3, 4 ]
 ```
@@ -799,7 +799,7 @@ Removes an item from the end of the collection and return it.
 var collection = new models.Collection( [ "A", "B", "C", "D" ] );
 var pop = collection.pop();
 
-writeOutput( pop );
+writeDump( pop );
 // D
 writeDump( collection.toArray() );
 // [ "A", "B", "C" ]
@@ -812,7 +812,7 @@ Removes an item from the beginning of the collection and return it.
 var collection = new models.Collection( [ "A", "B", "C", "D" ] );
 var shift = collection.shift();
 
-writeOutput( shift );
+writeDump( shift );
 // A
 writeDump( collection.toArray() );
 // [ "B", "C", "D" ]
