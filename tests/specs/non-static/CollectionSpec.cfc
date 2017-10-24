@@ -1292,6 +1292,58 @@ component extends="testbox.system.BaseSpec" {
 
                 expect( actual ).toBeTrue();
             } );
+
+            describe( "append", function() {
+                it( "add an item to the end of the collection", function() {
+                    var data = [ 1, 2, 3 ];
+                    var expected = [ 1, 2, 3, 4 ];
+
+                    var collection = new models.Collection( data );
+                    collection.append( 4 );
+
+                    expect( collection.toArray() ).toBe( expected );
+                } );
+            } );
+
+            describe( "prepend", function() {
+                it( "add an item to the beginning of the collection", function() {
+                    var data = [ 2, 3, 4 ];
+                    var expected = [ 1, 2, 3, 4 ];
+
+                    var collection = new models.Collection( data );
+                    collection.prepend( 1 );
+
+                    expect( collection.toArray() ).toBe( expected );
+                } );
+            } );
+
+            describe( "pop", function() {
+                it( "remove an item from the end of the collection and return it", function() {
+                    var data = [ 1, 2, 3, 4 ];
+                    var expectedReturn = 4;
+                    var expectedCollection = [ 1, 2, 3 ];
+
+                    var collection = new models.Collection( data );
+                    var pop = collection.pop();
+
+                    expect( pop ).toBe( expectedReturn );
+                    expect( collection.toArray() ).toBe( expectedCollection );
+                } );
+            } );
+
+            describe( "shift", function() {
+                it( "remove an item from the beginning of the collection and return it", function() {
+                    var data = [ 1, 2, 3, 4 ];
+                    var expectedReturn = 1;
+                    var expectedCollection = [ 2, 3, 4 ];
+
+                    var collection = new models.Collection( data );
+                    var shift = collection.shift();
+
+                    expect( shift ).toBe( expectedReturn );
+                    expect( collection.toArray() ).toBe( expectedCollection );
+                } );
+            } );
         } );
     }
 

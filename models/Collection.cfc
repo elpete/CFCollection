@@ -423,6 +423,26 @@ component {
         return serializeJSON( thisCollection.toArray() );
     }
 
+    public void function append( required any item ) {
+        arrayAppend( variables.collection, item );
+    }
+
+    public void function prepend( required any item ) {
+        arrayPrepend( variables.collection, item );
+    }
+
+    public any function pop() {
+        var result = this.last();
+        arrayDeleteAt( variables.collection, this.count() );
+        return result;
+    }
+
+    public any function shift() {
+        var result = this.first();
+        arrayDeleteAt( variables.collection, 1 );
+        return result;
+    }
+
     /* Private Methods */
 
     private Collection function clone() {

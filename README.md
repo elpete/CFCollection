@@ -770,6 +770,54 @@ collect( [ 1, 2, 3, 4 ] )
 // [ 4, 8 ]
 ```
 
+### append
+Adds an item to the end of the collection.
+
+```cfc
+var collection = new models.Collection( [ 1, 2, 3 ] );
+
+collection.append( 4 );
+writeDump( collection.toArray() );
+// [ 1, 2, 3, 4 ]
+```
+
+### prepend
+Adds an item to the beginning of the collection.
+
+```cfc
+var collection = new models.Collection( [ 2, 3, 4 ] );
+
+collection.append( 1 );
+writeDump( collection.toArray() );
+// [ 1, 2, 3, 4 ]
+```
+
+### pop
+Removes an item from the end of the collection and return it.
+
+```cfc
+var collection = new models.Collection( [ "A", "B", "C", "D" ] );
+var pop = collection.pop();
+
+writeOutput( pop );
+// D
+writeDump( collection.toArray() );
+// [ "A", "B", "C" ]
+```
+
+### shift
+Removes an item from the beginning of the collection and return it.
+
+```cfc
+var collection = new models.Collection( [ "A", "B", "C", "D" ] );
+var shift = collection.shift();
+
+writeOutput( shift );
+// A
+writeDump( collection.toArray() );
+// [ "B", "C", "D" ]
+```
+
 ## Static Support
 
 If your CFML engine supports static scopes and functions, you have some additional functionality available to you in the `MacroableCollection` component.  This component will be returned by default if you are using WireBox.
