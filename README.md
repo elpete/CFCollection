@@ -24,6 +24,40 @@ Injecting this will give you direct access to the `collect` method.
 
 **Note:** If you are subclassing `Collection`, you will need to override this method to return your subclass.
 
+#### `mixinLocations`
+Utilizing WireBox, you can mix in arbitrary collection methods in to each of your collections.  The `mixinLocations` setting will take the contents of any `cfm` files included and mix them in to your collection.  This can be a single file, a list of files, or an array of files. (You do not need to include the extension.)
+
+```cfc
+// config/ColdBox.cfc
+moduleSettings = {
+    cfcollection = {
+        mixinLocations = "/app/includes/macros/CFCollectionMacros"
+    }
+};
+```
+
+```cfm
+<!--- includes/mixins/CFCollectionMixins --->
+<cfscript>
+function triple() {
+    return this.map( function( item ) {
+        return item * 3;
+    } );
+}
+</cfscript>
+```
+
+```cfc
+// handlers/main.cfc
+
+property name="collect" inject="collect@CFCollection";
+
+function index( event, rc, prc ) {
+    var nums = collect( [ 1, 2, 3, 4, 5 ] );
+    event.renderData( nums.triple().get() );
+}
+```
+
 ## Methods
 
 ### init
