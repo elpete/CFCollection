@@ -261,6 +261,16 @@ component {
         callback( this );
         return this;
     }
+    
+    public Collection function append( required any item ) {
+        arrayAppend( variables.collection, item );
+        return this;
+    }
+
+    public Collection function prepend( required any item ) {
+        arrayPrepend( variables.collection, item );
+        return this;
+    }
 
     /* Returns a Pipeline function */
 
@@ -421,14 +431,6 @@ component {
     public string function serialize( any fields ) {
         var thisCollection = isNull( fields ) ? this : this.pluck( fields );
         return serializeJSON( thisCollection.toArray() );
-    }
-
-    public void function append( required any item ) {
-        arrayAppend( variables.collection, item );
-    }
-
-    public void function prepend( required any item ) {
-        arrayPrepend( variables.collection, item );
     }
 
     public any function pop() {
