@@ -267,6 +267,16 @@ component {
         callback( this );
         return this;
     }
+    
+    public Collection function append( required any item ) {
+        arrayAppend( variables.collection, item );
+        return this;
+    }
+
+    public Collection function prepend( required any item ) {
+        arrayPrepend( variables.collection, item );
+        return this;
+    }
 
     /* Returns a Pipeline function */
 
@@ -427,6 +437,18 @@ component {
     public string function serialize( any fields ) {
         var thisCollection = isNull( fields ) ? this : this.pluck( fields );
         return serializeJSON( thisCollection.toArray() );
+    }
+
+    public any function pop() {
+        var result = this.last();
+        arrayDeleteAt( variables.collection, this.count() );
+        return result;
+    }
+
+    public any function shift() {
+        var result = this.first();
+        arrayDeleteAt( variables.collection, 1 );
+        return result;
     }
 
     /* Private Methods */
