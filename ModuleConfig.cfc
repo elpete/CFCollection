@@ -9,17 +9,17 @@ component {
 
     function configure() {
         settings = {
-            macrosLocation = ""
+            mixinLocations = ""
         };
     }
 
     function onLoad() {
         binder.map( "Collection" )
             .to( "#moduleMapping#.models.Collection" )
-            .mixins( settings.macrosLocation );
+            .mixins( settings.mixinLocations );
         binder.map( "Collection@CFCollection" )
             .to( "#moduleMapping#.models.Collection" )
-            .mixins( settings.macrosLocation );
+            .mixins( settings.mixinLocations );
 
         binder.map( "collect" )
             .toFactoryMethod( "#moduleMapping#.models.Collection", "getCollectFunction" );
@@ -29,7 +29,7 @@ component {
         if ( structKeyExists( server, "lucee" ) && server.lucee.version >= 5 ) {
             binder.map( "Collection" )
                 .to( "#moduleMapping#.models.MacroableCollection" )
-                .mixins( settings.macrosLocation );
+                .mixins( settings.mixinLocations );
         }
     }
 

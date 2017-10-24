@@ -48,7 +48,7 @@
 		// custom settings
 		moduleSettings = {
 			cfcollection = {
-				macrosLocation = "/app/includes/macros/CFCollectionMacros"
+				mixinLocations = "/app/includes/mixins/CFCollectionMixins"
 			}
 		};
 
