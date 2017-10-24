@@ -13,7 +13,7 @@ component extends="testbox.system.BaseSpec" {
             it( "creates an empty collection by default", function() {
                 var collection = new models.Collection();
 
-                expect( collection.toArray() ).toBeEmpty( "Collection should be empty by default." );
+                expect( collection.get() ).toBeEmpty( "Collection should be empty by default." );
             } );
 
             it( "can be instantiated with an array", function() {
@@ -21,14 +21,14 @@ component extends="testbox.system.BaseSpec" {
 
                 var collection = new models.Collection( data );
 
-                expect( collection.toArray() ).toBe( data );
+                expect( collection.get() ).toBe( data );
             } );
 
             it( "can return a new collection from the `collect` function", function() {
                 var data = [ 1, 2, 3, 4 ];
                 var collection = createObject( "component", "models.Collection" ).collect( data );
 
-                expect( collection.toArray() ).toBe( data );
+                expect( collection.get() ).toBe( data );
             } );
 
             it( "returns the passed in value untouched if it is already a collection", function() {
@@ -48,7 +48,7 @@ component extends="testbox.system.BaseSpec" {
                     var collection = new models.Collection();
                     collection = collection.keys( obj );
 
-                    expect( collection.sort().toArray() ).toBe( expected );
+                    expect( collection.sort().get() ).toBe( expected );
                 } );
             } );
 
@@ -60,7 +60,7 @@ component extends="testbox.system.BaseSpec" {
                     var collection = new models.Collection();
                     collection = collection.values( obj );
 
-                    expect( collection.sort().toArray() ).toBe( expected );
+                    expect( collection.sort().get() ).toBe( expected );
                 } );
             } );
 
@@ -74,7 +74,7 @@ component extends="testbox.system.BaseSpec" {
 
                 var collection = new models.Collection( qry );
 
-                expect( collection.toArray() ).toBe( data, "Collection should have been converted from a query to an array." );
+                expect( collection.get() ).toBe( data, "Collection should have been converted from a query to an array." );
             } );
 
             it( "duplicates the original structure passed in", function() {
@@ -83,7 +83,7 @@ component extends="testbox.system.BaseSpec" {
                 var collection = new models.Collection( data );
                 data = [ 2, 3, 4, 5 ];
 
-                expect( collection.toArray() ).notToBe( data );
+                expect( collection.get() ).notToBe( data );
             } );
         } );
 
@@ -110,7 +110,7 @@ component extends="testbox.system.BaseSpec" {
                         return num * 2;
                     } );
 
-                    expect( collection.toArray() ).toBe( expected );
+                    expect( collection.get() ).toBe( expected );
                 } );
 
                 it( "provides the current index in the loop", function() {
@@ -140,7 +140,7 @@ component extends="testbox.system.BaseSpec" {
 
                     var collection = new models.Collection( data );
 
-                    expect( collection.pluck( "value" ).toArray() ).toBe( expected );
+                    expect( collection.pluck( "value" ).get() ).toBe( expected );
                 } );
 
                 it( "plucks values out of objects with accessor methods", function() {
@@ -154,7 +154,7 @@ component extends="testbox.system.BaseSpec" {
 
                     var collection = new models.Collection( data );
 
-                    expect( collection.pluck( "value" ).toArray() ).toBe( expected );
+                    expect( collection.pluck( "value" ).get() ).toBe( expected );
                 } );
 
                 it( "can pluck a list of values from a collection", function() {
@@ -173,7 +173,7 @@ component extends="testbox.system.BaseSpec" {
 
                     var collection = new models.Collection( data );
 
-                    expect( collection.pluck( "value,importance" ).toArray() ).toBe( expected );
+                    expect( collection.pluck( "value,importance" ).get() ).toBe( expected );
                 } );
 
                 it( "can pluck an array of values from a collection", function() {
@@ -192,7 +192,7 @@ component extends="testbox.system.BaseSpec" {
 
                     var collection = new models.Collection( data );
 
-                    expect( collection.pluck( [ "value", "importance" ] ).toArray() ).toBe( expected );
+                    expect( collection.pluck( [ "value", "importance" ] ).get() ).toBe( expected );
                 } );
             } );
 
@@ -207,7 +207,7 @@ component extends="testbox.system.BaseSpec" {
 
                     var collection = new models.Collection( data );
 
-                    expect( collection.flatten().toArray() ).toBe( expected );
+                    expect( collection.flatten().get() ).toBe( expected );
                 } );
 
                 it( "can specify how many layers to flatten", function() {
@@ -220,7 +220,7 @@ component extends="testbox.system.BaseSpec" {
 
                     var collection = new models.Collection( data );
 
-                    expect( collection.flatten( 1 ).toArray() ).toBe( expected );
+                    expect( collection.flatten( 1 ).get() ).toBe( expected );
                 } );
             } );
 
@@ -237,7 +237,7 @@ component extends="testbox.system.BaseSpec" {
                     return [ point.x, point.y ];
                 } );
 
-                expect( collection.toArray() ).toBe( expected );
+                expect( collection.get() ).toBe( expected );
             } );
 
             it( "filter", function() {
@@ -256,7 +256,7 @@ component extends="testbox.system.BaseSpec" {
                 collection = collection.filter( function( item ) {
                     return item.value % 2 == 0;
                 } );
-                expect( collection.toArray() ).toBe( expected );
+                expect( collection.get() ).toBe( expected );
             } );
 
             describe( "reject", function() {
@@ -276,7 +276,7 @@ component extends="testbox.system.BaseSpec" {
                     collection = collection.reject( function( item ) {
                         return item.value % 2 == 0;
                     } );
-                    expect( collection.toArray() ).toBe( expected );
+                    expect( collection.get() ).toBe( expected );
                 } );
             } );
 
@@ -288,7 +288,7 @@ component extends="testbox.system.BaseSpec" {
                     var collection = new models.Collection( data );
                     collection = collection.unique();
 
-                    expect( collection.sort().toArray() ).toBe( expected );
+                    expect( collection.sort().get() ).toBe( expected );
                 } );
 
                 it( "can return unique items based on a key", function() {
@@ -305,7 +305,7 @@ component extends="testbox.system.BaseSpec" {
 
                     var collection = new models.Collection( data );
                     collection = collection.unique( "label" );
-                    expect( collection.sort( "label" ).toArray() ).toBe( expected );
+                    expect( collection.sort( "label" ).get() ).toBe( expected );
                 } );
 
                 it( "can return unique items based on the return value of a closure", function() {
@@ -324,7 +324,7 @@ component extends="testbox.system.BaseSpec" {
                     collection = collection.unique( function( row ) {
                         return row.label;
                     } );
-                    expect( collection.sort( "label" ).toArray() ).toBe( expected );
+                    expect( collection.sort( "label" ).get() ).toBe( expected );
                 } );
             } );
 
@@ -333,7 +333,7 @@ component extends="testbox.system.BaseSpec" {
                 var expected = [ 4, 3, 2, 1];
 
                 var collection = new models.Collection( data );
-                expect( collection.reverse().toArray() ).toBe( expected );
+                expect( collection.reverse().get() ).toBe( expected );
             } );
 
             describe( "zip", function() {
@@ -345,7 +345,7 @@ component extends="testbox.system.BaseSpec" {
                     var collection = new models.Collection( data );
                     collection = collection.zip( zipWith );
 
-                    expect( collection.toArray() ).toBe( expected );
+                    expect( collection.get() ).toBe( expected );
                 } );
 
                 it( "can accept a projection function to influence the return result", function() {
@@ -358,7 +358,7 @@ component extends="testbox.system.BaseSpec" {
                         return item1 + item2;
                     } );
 
-                    expect( collection.toArray() ).toBe( expected );
+                    expect( collection.get() ).toBe( expected );
                 } );
 
                 it( "throws an exception if the arrays are different lengths", function() {
@@ -416,7 +416,7 @@ component extends="testbox.system.BaseSpec" {
 
                 var collection = new models.Collection( data );
 
-                expect( collection.transpose().toArray() ).toBe( expected );
+                expect( collection.transpose().get() ).toBe( expected );
             } );
 
             describe( "sort", function() {
@@ -426,7 +426,7 @@ component extends="testbox.system.BaseSpec" {
 
                     var collection = new models.Collection( data );
 
-                    expect( collection.sort().toArray() ).toBe( expected );
+                    expect( collection.sort().get() ).toBe( expected );
                 } );
 
                 it( "can accept a callback function that sorts", function() {
@@ -449,7 +449,7 @@ component extends="testbox.system.BaseSpec" {
                         return compare( itemA.value, itemB.value );
                     } );
 
-                    expect( collection.toArray() ).toBe( expected );
+                    expect( collection.get() ).toBe( expected );
                 } );
 
                 it( "can sort based on a key", function() {
@@ -469,7 +469,7 @@ component extends="testbox.system.BaseSpec" {
 
                     var collection = new models.Collection( data );
 
-                    expect( collection.sort( "value" ).toArray() ).toBe( expected );
+                    expect( collection.sort( "value" ).get() ).toBe( expected );
                 } );
             } );
 
@@ -482,7 +482,7 @@ component extends="testbox.system.BaseSpec" {
                     var collection = new models.Collection( data );
                     collection = collection.merge( dataToAdd );
 
-                    expect( collection.toArray() ).toBe( expected );
+                    expect( collection.get() ).toBe( expected );
                 } );
 
                 it( "can merge in another collection", function() {
@@ -494,7 +494,7 @@ component extends="testbox.system.BaseSpec" {
                     var otherCollection = new models.Collection( dataToAdd );
                     collection = collection.merge( otherCollection );
 
-                    expect( collection.toArray() ).toBe( expected );
+                    expect( collection.get() ).toBe( expected );
                 } );
             } );
 
@@ -506,7 +506,7 @@ component extends="testbox.system.BaseSpec" {
                     var collection = new models.Collection( data );
                     collection = collection.slice( 2, 2 );
 
-                    expect( collection.toArray() ).toBe( expected );
+                    expect( collection.get() ).toBe( expected );
                 } );
 
                 it( "slices to the end if no length is given", function() {
@@ -516,7 +516,7 @@ component extends="testbox.system.BaseSpec" {
                     var collection = new models.Collection( data );
                     collection = collection.slice( 2 );
 
-                    expect( collection.toArray() ).toBe( expected );
+                    expect( collection.get() ).toBe( expected );
                 } );
             } );
 
@@ -528,11 +528,11 @@ component extends="testbox.system.BaseSpec" {
                     var collection = new models.Collection( data );
                     collection = collection.chunk( 3 );
 
-                    expect( collection.toArray() ).toBeArray();
-                    expect( collection.toArray() ).toHaveLength( 3 );
-                    expect( collection.toArray()[1] ).toHaveLength( 3 );
-                    expect( collection.toArray()[2] ).toHaveLength( 3 );
-                    expect( collection.toArray()[3] ).toHaveLength( 3 );
+                    expect( collection.get() ).toBeArray();
+                    expect( collection.get() ).toHaveLength( 3 );
+                    expect( collection.get()[1] ).toHaveLength( 3 );
+                    expect( collection.get()[2] ).toHaveLength( 3 );
+                    expect( collection.get()[3] ).toHaveLength( 3 );
                 } );
 
                 it( "adds the remaining values to the last chunk even if it is not the chunk size", function() {
@@ -542,12 +542,12 @@ component extends="testbox.system.BaseSpec" {
                     var collection = new models.Collection( data );
                     collection = collection.chunk( 3 );
 
-                    expect( collection.toArray() ).toBeArray();
-                    expect( collection.toArray() ).toHaveLength( 4 );
-                    expect( collection.toArray()[1] ).toHaveLength( 3 );
-                    expect( collection.toArray()[2] ).toHaveLength( 3 );
-                    expect( collection.toArray()[3] ).toHaveLength( 3 );
-                    expect( collection.toArray()[4] ).toHaveLength( 2 );
+                    expect( collection.get() ).toBeArray();
+                    expect( collection.get() ).toHaveLength( 4 );
+                    expect( collection.get()[1] ).toHaveLength( 3 );
+                    expect( collection.get()[2] ).toHaveLength( 3 );
+                    expect( collection.get()[3] ).toHaveLength( 3 );
+                    expect( collection.get()[4] ).toHaveLength( 2 );
                 } );
             } );
 
@@ -567,7 +567,7 @@ component extends="testbox.system.BaseSpec" {
                     var collection = new models.Collection( data );
                     collection = collection.where( "species", "Human" );
 
-                    expect( collection.toArray() ).toBe( expected );
+                    expect( collection.get() ).toBe( expected );
                 } );
 
                 it( "can accept an array of values to check against ( like an IN statement)", function() {
@@ -586,7 +586,7 @@ component extends="testbox.system.BaseSpec" {
                     var collection = new models.Collection( data );
                     collection = collection.where( "species", [ "Human", "Vulcan" ] );
 
-                    expect( collection.toArray() ).toBe( expected );
+                    expect( collection.get() ).toBe( expected );
                 } );
 
                 it( "can also accept a list instead of an array of values", function() {
@@ -605,7 +605,7 @@ component extends="testbox.system.BaseSpec" {
                     var collection = new models.Collection( data );
                     collection = collection.where( "species", "Human,Vulcan" );
 
-                    expect( collection.toArray() ).toBe( expected );
+                    expect( collection.get() ).toBe( expected );
                 } );
 
                 it( "can check against an empty string", function() {
@@ -623,7 +623,7 @@ component extends="testbox.system.BaseSpec" {
                     var collection = new models.Collection( data );
                     collection = collection.where( "active", "" );
 
-                    expect( collection.toArray() ).toBe( expected );
+                    expect( collection.get() ).toBe( expected );
                 } );
             } );
 
@@ -643,7 +643,7 @@ component extends="testbox.system.BaseSpec" {
                     var collection = new models.Collection( data );
                     collection = collection.whereNot( "species", "Human" );
 
-                    expect( collection.toArray() ).toBe( expected );
+                    expect( collection.get() ).toBe( expected );
                 } );
 
                 it( "can accept an array of values to check against ( like an IN statement)", function() {
@@ -660,7 +660,7 @@ component extends="testbox.system.BaseSpec" {
                     var collection = new models.Collection( data );
                     collection = collection.whereNot( "species", [ "Human", "Vulcan" ] );
 
-                    expect( collection.toArray() ).toBe( expected );
+                    expect( collection.get() ).toBe( expected );
                 } );
 
                 it( "can also accept a list instead of an array of values", function() {
@@ -677,23 +677,23 @@ component extends="testbox.system.BaseSpec" {
                     var collection = new models.Collection( data );
                     collection = collection.whereNot( "species", "Human,Vulcan" );
 
-                    expect( collection.toArray() ).toBe( expected );
+                    expect( collection.get() ).toBe( expected );
                 } );
             } );
 
             it( "range", function() {
                 var collection = new models.Collection();
 
-                expect( collection.range( 4 ).toArray() ).toBe( [ 0, 1, 2, 3 ] );
-                expect( collection.range( -4 ).toArray() ).toBe( [ 0, -1, -2, -3 ] );
-                expect( collection.range( -0, 4 ).toArray() ).toBe( [ -0, 1, 2, 3 ] );
-                expect( collection.range( 1, 5 ).toArray() ).toBe( [ 1, 2, 3, 4 ] );
-                expect( collection.range( 0, 4, 5 ).toArray() ).toBe( [ 0, 5, 10, 15 ] );
-                expect( collection.range( 0, -4, -1 ).toArray() ).toBe( [ 0, -1, -2, -3 ] );
-                expect( collection.range( 1, 4, 0 ).toArray() ).toBe( [ 1, 1, 1 ] );
-                expect( collection.range( -4, 0, 0 ).toArray() ).toBe( [ -4, -4, -4, -4 ] );
-                expect( collection.range( -4, 0 ).toArray() ).toBe( [ -4, -3, -2, -1 ] );
-                expect( collection.range( 0 ).toArray() ).toBe( [] );
+                expect( collection.range( 4 ).get() ).toBe( [ 0, 1, 2, 3 ] );
+                expect( collection.range( -4 ).get() ).toBe( [ 0, -1, -2, -3 ] );
+                expect( collection.range( -0, 4 ).get() ).toBe( [ -0, 1, 2, 3 ] );
+                expect( collection.range( 1, 5 ).get() ).toBe( [ 1, 2, 3, 4 ] );
+                expect( collection.range( 0, 4, 5 ).get() ).toBe( [ 0, 5, 10, 15 ] );
+                expect( collection.range( 0, -4, -1 ).get() ).toBe( [ 0, -1, -2, -3 ] );
+                expect( collection.range( 1, 4, 0 ).get() ).toBe( [ 1, 1, 1 ] );
+                expect( collection.range( -4, 0, 0 ).get() ).toBe( [ -4, -4, -4, -4 ] );
+                expect( collection.range( -4, 0 ).get() ).toBe( [ -4, -3, -2, -1 ] );
+                expect( collection.range( 0 ).get() ).toBe( [] );
             } );
         } );
 
@@ -719,7 +719,7 @@ component extends="testbox.system.BaseSpec" {
                         }
                     );
 
-                    expect( collection.toArray() ).toBe( expected );
+                    expect( collection.get() ).toBe( expected );
                 } );
 
                 it( "does not run the callback function when the condition is false", function() {
@@ -739,7 +739,7 @@ component extends="testbox.system.BaseSpec" {
                         return c.where( "species", "Human" );
                     } );
 
-                    expect( collection.toArray() ).toBe( data );
+                    expect( collection.get() ).toBe( data );
                 } );
 
                 it( "runs the defaultCallback (if exists) when the condition is false", function() {
@@ -765,7 +765,7 @@ component extends="testbox.system.BaseSpec" {
                         }
                     );
 
-                    expect( collection.toArray() ).toBe( expected );
+                    expect( collection.get() ).toBe( expected );
                 } );
             } );
 
@@ -776,18 +776,18 @@ component extends="testbox.system.BaseSpec" {
 
                     var collection = new models.Collection( data );
                     var actual = collection.tap( function( c ) {
-                        arrayAppend( debugged, c.toArray() );
+                        arrayAppend( debugged, c.get() );
                         var doubled = c.map( function( item ) {
                             // This code runs, but should not change the collection.
                             return item * 2;
                         } );
-                        arrayAppend( debugged, doubled.toArray() );
+                        arrayAppend( debugged, doubled.get() );
                         return doubled;
                     } );
 
                     expect( actual ).toBeInstanceOf( "models.Collection", "A collection should be returned" );
                     expect( actual ).toBe( collection, "The same collection should be returned" );
-                    expect( actual.toArray() ).toBe( data );
+                    expect( actual.get() ).toBe( data );
                     expect( debugged ).toHaveLength( 2, "The callback should have called the debug method twice." );
                     expect( debugged[ 1 ] ).toBe( [ 1, 2, 3, 4 ] );
                     expect( debugged[ 2 ] ).toBe( [ 2, 4, 6, 8 ] );
@@ -1154,7 +1154,7 @@ component extends="testbox.system.BaseSpec" {
                     var collection = new models.Collection( data );
                     var sum = collection.sum( "value" );
                     expect( sum ).toBe( expected );
-                    expect( collection.toArray() ).toBe( data );
+                    expect( collection.get() ).toBe( data );
                 } );
             } );
 
@@ -1195,7 +1195,7 @@ component extends="testbox.system.BaseSpec" {
                     var collection = new models.Collection( data );
                     var avg = collection.avg( "value" );
                     expect( avg ).toBe( expected );
-                    expect( collection.toArray() ).toBe( data );
+                    expect( collection.get() ).toBe( data );
                 } );
             } );
 
