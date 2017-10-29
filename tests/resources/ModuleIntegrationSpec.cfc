@@ -4,7 +4,11 @@ component extends="coldbox.system.testing.BaseTestCase" {
         super.beforeAll();
 
         getController().getModuleService()
-            .registerAndActivateModule( "cfcollection", "testingModuleRoot" );
+            .registerAndActivateModule(
+                moduleName = "cfcollection",
+                invocationPath = "testingModuleRoot",
+                force = true
+            );
     }
 
     /**
