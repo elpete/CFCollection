@@ -41,7 +41,7 @@ component {
             start = 0;
         }
         step = isNull( step ) ? (start < end ? 1 : -1) : step;
-        var length = max( ceiling( ( abs( end ) - start ) / ( abs( step ) || 1 ) ), 0 );
+        var length = max( ceiling( ( abs( end ) - start ) / ( abs( step ) == 0 ? 1 : abs( step ) ) ), 0 );
         var collection = [];
         while ( length-- ) {
             arrayAppend( collection, start );
