@@ -764,7 +764,7 @@ collection.range( -4 );
 collection.range( 1, 4 );
 // [ 1, 2, 3, 4 ]
  
-collection.range(0, 4, 10);
+collection.range(0, 40, 10);
 // [ 0, 10, 20, 30 ]
  
 collection.range( 0, -4, -1 );
