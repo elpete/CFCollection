@@ -5,7 +5,7 @@ component extends="coldbox.system.testing.BaseTestCase" {
 
         getController().getModuleService()
             .registerAndActivateModule(
-                moduleName = "cfcollection",
+                moduleName = "CFCollection",
                 invocationPath = "testingModuleRoot",
                 force = true
             );

@@ -1,6 +1,6 @@
 component {
 
-    this.name = "collection_tests_" & hash( getCurrentTemplatePath() );
+    this.name = "cfcollection_tests_" & hash( getCurrentTemplatePath() );
     this.sessionManagement  = true;
     this.setClientCookies   = true;
     this.sessionTimeout     = createTimeSpan( 0, 0, 15, 0 );
