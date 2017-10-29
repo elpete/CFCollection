@@ -22,9 +22,9 @@ component {
             .mixins( settings.mixinLocations );
 
         binder.map( "collect" )
-            .toFactoryMethod( "#moduleMapping#.models.Collection", "getCollectFunction" );
+            .toFactoryMethod( "Collection", "getCollectFunction" );
         binder.map( "collect@CFCollection" )
-            .toFactoryMethod( "#moduleMapping#.models.Collection", "getCollectFunction" );
+            .toFactoryMethod( "Collection", "getCollectFunction" );
 
         if ( structKeyExists( server, "lucee" ) && server.lucee.version >= 5 ) {
             binder.map( "Collection" )

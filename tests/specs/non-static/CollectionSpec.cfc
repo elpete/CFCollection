@@ -688,7 +688,7 @@ component extends="testbox.system.BaseSpec" {
                 expect( collection.range( -4 ).get() ).toBe( [ 0, -1, -2, -3 ] );
                 expect( collection.range( -0, 4 ).get() ).toBe( [ -0, 1, 2, 3 ] );
                 expect( collection.range( 1, 5 ).get() ).toBe( [ 1, 2, 3, 4 ] );
-                expect( collection.range( 0, 4, 5 ).get() ).toBe( [ 0, 5, 10, 15 ] );
+                expect( collection.range( 0, 20, 5 ).get() ).toBe( [ 0, 5, 10, 15 ] );
                 expect( collection.range( 0, -4, -1 ).get() ).toBe( [ 0, -1, -2, -3 ] );
                 expect( collection.range( 1, 4, 0 ).get() ).toBe( [ 1, 1, 1 ] );
                 expect( collection.range( -4, 0, 0 ).get() ).toBe( [ -4, -4, -4, -4 ] );
