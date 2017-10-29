@@ -43,7 +43,7 @@
         "coldbox":"^4.3.0"
     },
     "installPaths":{
-        "testbox":"testbox/",
+        "testbox":"testbox",
         "coldbox":"tests/resources/app/coldbox",
         "normalizeToArray":"modules/normalizeToArray"
     },
