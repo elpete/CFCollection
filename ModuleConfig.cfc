@@ -1,9 +1,9 @@
 component {
 
-    this.name = "Collection";
+    this.name = "CFCollection";
     this.author = "Eric Peterson";
     this.description = "An array wrapper for functional programming";
-    this.version = "1.0.0";
+    this.version = "3.3.0";
     this.autoMapModels = false;
     this.cfmapping = "cfcollection";
 
