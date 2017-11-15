@@ -50,6 +50,28 @@ component {
         return collect( collection );
     }
 
+    public Collection function unshift() {
+        var collection = this;
+        if ( arrayLen( arguments ) ) {
+            for ( var index in arguments ) {
+                collection.prepend( arguments[ index ] );
+            }
+        }
+
+        return collection;
+    }
+
+    public Collection function push() {
+        var collection = this;
+        if ( arrayLen( arguments ) ) {
+            for ( var index in arguments ) {
+                collection.append( arguments[ index ] );
+            }
+        }
+
+        return collection;
+    }
+
     /*==========================================
     =            Imperative Methods            =
     ==========================================*/
@@ -448,6 +470,40 @@ component {
     public any function shift() {
         var result = this.first();
         arrayDeleteAt( variables.collection, 1 );
+        return result;
+    }
+
+    public array function splice( numeric start, numeric deleteCount ) {
+        var result = [];
+        var collection = this.get();
+        var length = this.length();
+        var args = arrayLen( arguments ) > 2 ? collect( arguments ).slice( 3 ).get() : [];
+        var point = ( start == 0 ) ? 1 : start;
+        
+        if ( start > length ) {
+            point = length;
+        } else if ( sgn( start ) == -1 ) {
+            point = abs( start ) > length ? 1 : length + start + 1;
+        }
+        if ( isNull( deleteCount ) || deleteCount > length - start ) {
+            result = this.slice( point + 1 ).get();
+            collection = collect( collection ).slice( 1, length - point ).get();
+            for ( var item in args ) {
+                arrayAppend( collection, item );
+            }
+        } else {
+            var position = deleteCount;
+            while ( position-- ) {
+                arrayAppend( result, collection[ point ] );
+                arrayDeleteAt( collection, point );
+            }
+            for ( var item in args ) {
+                arrayInsertAt( collection, point, item );
+                point++;
+            }
+        }
+        variables.collection = collection;
+
         return result;
     }
 
