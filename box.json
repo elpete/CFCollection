@@ -1,6 +1,6 @@
 {
     "name":"CFCollection",
-    "version":"3.3.0",
+    "version":"0.0.0-semantic-released",
     "author":"Eric Peterson",
     "location":"elpete/cfcollection#v3.3.0",
     "homepage":"https://github.com/elpete/cfcollection",
@@ -22,8 +22,6 @@
     ],
     "scripts":{
         "postVersion":"package set location='elpete/cfcollection#v`package version`'",
-        "onRelease":"publish",
-        "postPublish":"!git push && !git push --tags"
     },
     "private":false,
     "license":[
