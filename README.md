@@ -5,10 +5,6 @@
 
 [![Build Status](https://travis-ci.org/elpete/CFCollection.svg?branch=master)](https://travis-ci.org/elpete/CFCollection)
 
-<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/TQMfPZtDP7SHs7UgJVGg61uH/elpete/CFCollection'>
-  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/TQMfPZtDP7SHs7UgJVGg61uH/elpete/CFCollection.svg' />
-</a>
-
 ## WireBox Integration
 
 If your CFML engine supports static methods (Lucee 5+), WireBox will return a method
