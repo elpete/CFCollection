@@ -50,6 +50,28 @@ component {
         return collect( collection );
     }
 
+    public Collection function unshift() {
+        var collection = this;
+        if ( arrayLen( arguments ) ) {
+            for ( var index in arguments ) {
+                collection.prepend( arguments[ index ] );
+            }
+        }
+
+        return collection;
+    }
+
+    public Collection function push() {
+        var collection = this;
+        if ( arrayLen( arguments ) ) {
+            for ( var index in arguments ) {
+                collection.append( arguments[ index ] );
+            }
+        }
+
+        return collection;
+    }
+
     /*==========================================
     =            Imperative Methods            =
     ==========================================*/
@@ -448,6 +470,45 @@ component {
     public any function shift() {
         var result = this.first();
         arrayDeleteAt( variables.collection, 1 );
+        return result;
+    }
+
+    public array function splice( numeric start, numeric deleteCount ) {
+        var result = [];
+        var args = [];
+        var collection = this.get();
+        var length = this.length();
+        var index = ( start == 0 ) ? 1 : start;
+
+        if ( structCount( arguments ) > 2 ) {
+            args = keys( arguments ).reject( function( key ) {
+                return arrayFindNoCase( [ "start", "deleteCount" ], key );
+            } ).get();
+        }
+        if ( start > length ) {
+            index = length;
+        } else if ( sgn( start ) == -1 ) {
+            index = abs( start ) > length ? 1 : length + start + 1;
+        }
+        if ( isNull( deleteCount ) || deleteCount > length - start ) {
+            result = this.slice( index + 1 ).get();
+            collection = collect( collection ).slice( 1, length - index ).get();
+            for ( var item in args ) {
+                arrayAppend( collection, arguments[ item ] );
+            }
+        } else {
+            var position = deleteCount;
+            while ( position-- ) {
+                arrayAppend( result, collection[ index ] );
+                arrayDeleteAt( collection, index );
+            }
+            for ( var item in args ) {
+                arrayInsertAt( collection, index, arguments[ item ] );
+                index++;
+            }
+        }
+        variables.collection = collection;
+
         return result;
     }
 

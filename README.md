@@ -839,6 +839,17 @@ writeDump( collection.toArray() );
 // [ "A", "B", "C" ]
 ```
 
+### push
+Add one or more items to the end of a collection.
+
+```cfc
+var collection = new models.Collection( [ 3, 2, 1 ] );
+collection.push( "lift off!" );
+
+writeDump( collection.get() );
+// [ 3, 2, 1, "lift off!" ]
+```
+
 ### shift
 Removes an item from the beginning of the collection and return it.
 
@@ -850,6 +861,30 @@ writeDump( shift );
 // A
 writeDump( collection.toArray() );
 // [ "B", "C", "D" ]
+```
+
+### unshift
+Add one or more items to the beginning of a collection.
+
+```cfc
+var collection = new models.Collection( [ "kiwi", "orange", "banana" ] );
+collection.unshift( "apple" );
+
+writeDump( collection.get() );
+// [ "apple", "kiwi", "orange", "banana" ]
+```
+
+### splice
+Modifies the contents of a collection by removing existing items and/or adding new items. Returns an array containing the removed items.
+
+```cfc
+var collection = new models.Collection( [ "Aragorn", "Boromir", "Gimli", "Legolas" ] );
+var result = collection.splice( 2, 1, "Gandalf" );
+
+writeDump( result );
+// [ "Boromir" ]
+writeDump( collection.get() );
+// [ "Aragorn", "Gandalf", "Gimli", "Legolas" ]
 ```
 
 ## Static Support
