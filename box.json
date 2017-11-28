@@ -37,18 +37,19 @@
         "tests"
     ],
     "devDependencies":{
-        "testbox":"^2.3.0+00044",
         "coldbox":"^4.3.0"
     },
     "installPaths":{
-        "testbox":"testbox",
+        "testbox":"testbox/",
         "coldbox":"tests/resources/app/coldbox",
-        "normalizeToArray":"modules/normalizeToArray"
+        "normalizeToArray":"modules/normalizeToArray/"
     },
     "dependencies":{
         "normalizeToArray":"^1.0.2"
     },
     "testbox":{
-        "directory":"tests.specs.non-static"
+        "runner":"http://localhost:9877/tests/runner.cfm",
+        "directory":"tests.specs.non-static",
+        "verbose":"false"
     }
 }

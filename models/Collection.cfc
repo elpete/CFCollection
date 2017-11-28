@@ -50,6 +50,10 @@ component {
         return collect( collection );
     }
 
+    function transducer() {
+        return new TransducerCollection( collection );
+    }
+
     /*==========================================
     =            Imperative Methods            =
     ==========================================*/
@@ -99,7 +103,7 @@ component {
     }
 
     public Collection function flatten( depth = 0 ) {
-        return collect( _flatten( this.toArray(), depth ) );
+        return collect( _flatten( this.get(), depth ) );
     }
 
     public Collection function filter( required predicate ) {
@@ -167,7 +171,7 @@ component {
                 return [ item1, item2 ];
             };
         }
-        newCollection = normalizeToArray( newCollection.toArray() );
+        newCollection = normalizeToArray( newCollection );
 
         if ( this.count() != arrayLen( newCollection ) ) {
             throw(
@@ -186,8 +190,8 @@ component {
             collect( collection[ 1 ] ).map( function( _, i ) {
                 return collect( collection ).map( function( arr ) {
                     return arr[ i ];
-                } ).toArray();
-            } ).toArray()
+                } ).get();
+            } ).get()
         );
     }
 
@@ -210,9 +214,9 @@ component {
     }
 
     public Collection function merge( required any newValues ) {
-        var values = this.toArray();
+        var values = this.get();
         if ( isInstanceOf( newValues, "Collection" ) ) {
-            newValues = newValues.toArray();
+            newValues = newValues.get();
         }
         for ( var value in normalizeToArray( newValues ) ) {
             arrayAppend( values, value );
@@ -224,7 +228,7 @@ component {
         required numeric position,
         numeric length = this.count() + 1 - position
     ) {
-        return collect( arraySlice( clone().toArray(), position, length ) );
+        return collect( arraySlice( clone().get(), position, length ) );
     }
 
     public Collection function chunk( required numeric length ) {
@@ -327,7 +331,7 @@ component {
             };
         }
 
-        for ( var item in this.toArray() ) {
+        for ( var item in this.get() ) {
             if ( predicate( item ) ) {
                 return item;
             }
@@ -436,7 +440,7 @@ component {
 
     public string function serialize( any fields ) {
         var thisCollection = isNull( fields ) ? this : this.pluck( fields );
-        return serializeJSON( thisCollection.toArray() );
+        return serializeJSON( thisCollection.get() );
     }
 
     public any function pop() {
@@ -454,7 +458,7 @@ component {
     /* Private Methods */
 
     private Collection function clone() {
-        var newCollection = collect( this.toArray() );
+        var newCollection = collect( this.get() );
         return newCollection;
     }
 
