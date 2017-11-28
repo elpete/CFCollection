@@ -52,9 +52,9 @@ component {
 
     public Collection function unshift() {
         var collection = this;
-        if ( arrayLen( arguments ) ) {
-            for ( var index in arguments ) {
-                collection.prepend( arguments[ index ] );
+        if ( structCount( arguments ) ) {
+            for ( var value in arguments ) {
+                collection.prepend( arguments[ value ] );
             }
         }
 
@@ -63,9 +63,9 @@ component {
 
     public Collection function push() {
         var collection = this;
-        if ( arrayLen( arguments ) ) {
-            for ( var index in arguments ) {
-                collection.append( arguments[ index ] );
+        if ( structCount( arguments ) ) {
+            for ( var value in arguments ) {
+                collection.append( arguments[ value ] );
             }
         }
 
