@@ -37,12 +37,13 @@
         "tests"
     ],
     "devDependencies":{
+        "testbox":"^2.5.0+107",
         "coldbox":"^4.3.0"
     },
     "installPaths":{
-        "testbox":"testbox/",
         "coldbox":"tests/resources/app/coldbox",
-        "normalizeToArray":"modules/normalizeToArray/"
+        "normalizeToArray":"modules/normalizeToArray/",
+        "testbox":"testbox"
     },
     "dependencies":{
         "normalizeToArray":"^1.0.2"
