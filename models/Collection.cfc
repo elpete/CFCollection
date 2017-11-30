@@ -50,28 +50,6 @@ component {
         return collect( collection );
     }
 
-    public Collection function unshift() {
-        var collection = this;
-        if ( structCount( arguments ) ) {
-            for ( var value in arguments ) {
-                collection.prepend( arguments[ value ] );
-            }
-        }
-
-        return collection;
-    }
-
-    public Collection function push() {
-        var collection = this;
-        if ( structCount( arguments ) ) {
-            for ( var value in arguments ) {
-                collection.append( arguments[ value ] );
-            }
-        }
-
-        return collection;
-    }
-
     /*==========================================
     =            Imperative Methods            =
     ==========================================*/
@@ -290,14 +268,30 @@ component {
         return this;
     }
 
-    public Collection function append( required any item ) {
-        arrayAppend( variables.collection, item );
+    public Collection function append() {
+        if ( structCount( arguments ) ) {
+            for ( var value in arguments ) {
+                arrayAppend( variables.collection, arguments[ value ] );
+            }
+        }
+
         return this;
     }
 
+    public Collection function push() {
+        return this.append( argumentCollection = arguments );
+    }
+
     public Collection function prepend( required any item ) {
-        arrayPrepend( variables.collection, item );
+        for ( var i = structCount( arguments ); i > 0; i-- ) {
+            arrayPrepend( variables.collection, arguments[ i ] );
+        }
+
         return this;
+    }
+
+    public Collection function unshift() {
+        return this.prepend( argumentCollection = arguments );
     }
 
     /* Returns a Pipeline function */
