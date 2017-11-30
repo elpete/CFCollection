@@ -696,27 +696,7 @@ component extends="testbox.system.BaseSpec" {
                 expect( collection.range( 0 ).get() ).toBe( [] );
             } );
 
-            describe( "push", function() {
-                it( "adds the arguments to the end of the collection", function() {
-                    var data = [ 3, 2, 1 ];
-                    var collection = new models.Collection( data );
 
-                    collection.push( "lift off!" );
-
-                    expect( collection.get() ).toBe( [ 3, 2, 1, "lift off!" ] );
-                } );
-            } );
-
-            describe( "unshift", function() {
-                it( "adds the arguments to the beginning of the collection", function() {
-                    var data = [ "kiwi", "orange", "banana" ];
-                    var collection = new models.Collection( data );
-
-                    collection.unshift( "apple" );
-
-                    expect( collection.get() ).toBe( [ "apple", "kiwi", "orange", "banana" ] );
-                } );
-            } );
         } );
 
         describe( "pipeline functions", function() {
@@ -1326,6 +1306,37 @@ component extends="testbox.system.BaseSpec" {
 
                     expect( collection.toArray() ).toBe( expected );
                 } );
+
+                it( "can add multiple items at once", function() {
+                    var data = [ 1, 2, 3 ];
+                    var expected = [ 1, 2, 3, 4, 5 ];
+
+                    var collection = new models.Collection( data );
+                    collection.append( 4, 5 );
+
+                    expect( collection.toArray() ).toBe( expected );
+                } );
+            } );
+
+            describe( "push", function() {
+                it( "adds the arguments to the end of the collection", function() {
+                    var data = [ 3, 2, 1 ];
+                    var collection = new models.Collection( data );
+
+                    collection.push( "lift off!" );
+
+                    expect( collection.get() ).toBe( [ 3, 2, 1, "lift off!" ] );
+                } );
+
+                it( "can add multiple items at once", function() {
+                    var data = [ 1, 2, 3 ];
+                    var expected = [ 1, 2, 3, 4, 5 ];
+
+                    var collection = new models.Collection( data );
+                    collection.push( 4, 5 );
+
+                    expect( collection.toArray() ).toBe( expected );
+                } );
             } );
 
             describe( "prepend", function() {
@@ -1335,6 +1346,37 @@ component extends="testbox.system.BaseSpec" {
 
                     var collection = new models.Collection( data );
                     collection.prepend( 1 );
+
+                    expect( collection.toArray() ).toBe( expected );
+                } );
+
+                it( "can add multiple items at once", function() {
+                    var data = [ 2, 3, 4 ];
+                    var expected = [ 0, 1, 2, 3, 4 ];
+
+                    var collection = new models.Collection( data );
+                    collection.prepend( 0, 1 );
+
+                    expect( collection.toArray() ).toBe( expected );
+                } );
+            } );
+
+            describe( "unshift", function() {
+                it( "adds the arguments to the beginning of the collection", function() {
+                    var data = [ "kiwi", "orange", "banana" ];
+                    var collection = new models.Collection( data );
+
+                    collection.unshift( "apple" );
+
+                    expect( collection.get() ).toBe( [ "apple", "kiwi", "orange", "banana" ] );
+                } );
+
+                it( "can add multiple items at once", function() {
+                    var data = [ 2, 3, 4 ];
+                    var expected = [ 0, 1, 2, 3, 4 ];
+
+                    var collection = new models.Collection( data );
+                    collection.unshift( 0, 1 );
 
                     expect( collection.toArray() ).toBe( expected );
                 } );
@@ -1372,19 +1414,19 @@ component extends="testbox.system.BaseSpec" {
                 it( "insert items at a given index", function() {
                     var data = [ "Frodo", "Sam", "Merry", "Pippin" ];
                     var collection = new models.Collection( data );
-                    
+
                     var result = collection.splice( 2, 0, "Bilbo" );
 
                     expect( result ).toBe( [] );
                     expect( collection.get() ).toBe( [ "Frodo", "Bilbo", "Sam", "Merry", "Pippin" ] );
                 } );
-                
+
                 it( "remove items at given index", function() {
                     var data = [ "Thorin", "Dwalin", "Balin", "Gloin" ];
                     var collection1 = new models.Collection( data );
                     var collection2 = new models.Collection( data );
                     var collection3 = new models.Collection( data );
-                    
+
                     var result1 = collection1.splice( 2, 1 );
                     var result2 = collection2.splice( -2, 1 );
                     var result3 = collection3.splice( -1, 1 );
@@ -1403,7 +1445,7 @@ component extends="testbox.system.BaseSpec" {
                     var data = [ "Aragorn", "Boromir", "Gimli", "Legolas" ];
                     var collection1 = new models.Collection( data );
                     var collection2 = new models.Collection( data );
-                    
+
                     var result1 = collection1.splice( 2, 1, "Gandalf" );
                     var result2 = collection2.splice( 0, 2, "Gandalf", "Elrond" );
 
