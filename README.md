@@ -753,22 +753,22 @@ var collection = new models.Collection();
 
 collection.range( 4 );
 // [ 0, 1, 2, 3 ]
- 
+
 collection.range( -4 );
 // [ 0, -1, -2, -3 ]
- 
+
 collection.range( 1, 4 );
 // [ 1, 2, 3, 4 ]
- 
+
 collection.range(0, 40, 10);
 // [ 0, 10, 20, 30 ]
- 
+
 collection.range( 0, -4, -1 );
 // [ 0, -1, -2, -3 ]
- 
+
 collection.range( 1, 4, 0 );
 // [ 1, 1, 1 ]
- 
+
 collection.range( 0 );
 // []
 ```
@@ -801,18 +801,21 @@ collect( [ 1, 2, 3, 4 ] )
 ```
 
 ### append
-Adds an item to the end of the collection.
+Adds one or more items to the end of the collection.
+(Adding more than one item must be done as variadic parameters.)
 
 ```cfc
 var collection = new models.Collection( [ 1, 2, 3 ] );
 collection.append( 4 );
+collection.append( 5, 6 );
 
 writeDump( collection.toArray() );
-// [ 1, 2, 3, 4 ]
+// [ 1, 2, 3, 4, 5, 6 ]
 ```
 
 ### prepend
-Adds an item to the beginning of the collection.
+Adds one or more items to the beginning of the collection.
+(Adding more than one item must be done as variadic parameters.)
 
 ```cfc
 var collection = new models.Collection( [ 2, 3, 4 ] );
@@ -835,6 +838,18 @@ writeDump( collection.toArray() );
 // [ "A", "B", "C" ]
 ```
 
+### push
+Add one or more items to the end of a collection.
+(Alias for `append`)
+
+```cfc
+var collection = new models.Collection( [ 3, 2, 1 ] );
+collection.push( "lift off!" );
+
+writeDump( collection.get() );
+// [ 3, 2, 1, "lift off!" ]
+```
+
 ### shift
 Removes an item from the beginning of the collection and return it.
 
@@ -846,6 +861,31 @@ writeDump( shift );
 // A
 writeDump( collection.toArray() );
 // [ "B", "C", "D" ]
+```
+
+### unshift
+Add one or more items to the beginning of a collection.
+(Alias for `prepend`)
+
+```cfc
+var collection = new models.Collection( [ "kiwi", "orange", "banana" ] );
+collection.unshift( "apple" );
+
+writeDump( collection.get() );
+// [ "apple", "kiwi", "orange", "banana" ]
+```
+
+### splice
+Modifies the contents of a collection by removing existing items and/or adding new items. Returns an array containing the removed items.
+
+```cfc
+var collection = new models.Collection( [ "Aragorn", "Boromir", "Gimli", "Legolas" ] );
+var result = collection.splice( 2, 1, "Gandalf" );
+
+writeDump( result );
+// [ "Boromir" ]
+writeDump( collection.get() );
+// [ "Aragorn", "Gandalf", "Gimli", "Legolas" ]
 ```
 
 ## Static Support

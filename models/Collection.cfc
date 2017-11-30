@@ -268,14 +268,30 @@ component {
         return this;
     }
 
-    public Collection function append( required any item ) {
-        arrayAppend( variables.collection, item );
+    public Collection function append() {
+        if ( structCount( arguments ) ) {
+            for ( var value in arguments ) {
+                arrayAppend( variables.collection, arguments[ value ] );
+            }
+        }
+
         return this;
     }
 
+    public Collection function push() {
+        return this.append( argumentCollection = arguments );
+    }
+
     public Collection function prepend( required any item ) {
-        arrayPrepend( variables.collection, item );
+        for ( var i = structCount( arguments ); i > 0; i-- ) {
+            arrayPrepend( variables.collection, arguments[ i ] );
+        }
+
         return this;
+    }
+
+    public Collection function unshift() {
+        return this.prepend( argumentCollection = arguments );
     }
 
     /* Returns a Pipeline function */
@@ -448,6 +464,45 @@ component {
     public any function shift() {
         var result = this.first();
         arrayDeleteAt( variables.collection, 1 );
+        return result;
+    }
+
+    public array function splice( numeric start, numeric deleteCount ) {
+        var result = [];
+        var args = [];
+        var collection = this.get();
+        var length = this.length();
+        var index = ( start == 0 ) ? 1 : start;
+
+        if ( structCount( arguments ) > 2 ) {
+            args = keys( arguments ).reject( function( key ) {
+                return arrayFindNoCase( [ "start", "deleteCount" ], key );
+            } ).get();
+        }
+        if ( start > length ) {
+            index = length;
+        } else if ( sgn( start ) == -1 ) {
+            index = abs( start ) > length ? 1 : length + start + 1;
+        }
+        if ( isNull( deleteCount ) || deleteCount > length - start ) {
+            result = this.slice( index + 1 ).get();
+            collection = collect( collection ).slice( 1, length - index ).get();
+            for ( var item in args ) {
+                arrayAppend( collection, arguments[ item ] );
+            }
+        } else {
+            var position = deleteCount;
+            while ( position-- ) {
+                arrayAppend( result, collection[ index ] );
+                arrayDeleteAt( collection, index );
+            }
+            for ( var item in args ) {
+                arrayInsertAt( collection, index, arguments[ item ] );
+                index++;
+            }
+        }
+        variables.collection = collection;
+
         return result;
     }
 

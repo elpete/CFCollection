@@ -695,6 +695,8 @@ component extends="testbox.system.BaseSpec" {
                 expect( collection.range( -4, 0 ).get() ).toBe( [ -4, -3, -2, -1 ] );
                 expect( collection.range( 0 ).get() ).toBe( [] );
             } );
+
+
         } );
 
         describe( "pipeline functions", function() {
@@ -1304,6 +1306,37 @@ component extends="testbox.system.BaseSpec" {
 
                     expect( collection.toArray() ).toBe( expected );
                 } );
+
+                it( "can add multiple items at once", function() {
+                    var data = [ 1, 2, 3 ];
+                    var expected = [ 1, 2, 3, 4, 5 ];
+
+                    var collection = new models.Collection( data );
+                    collection.append( 4, 5 );
+
+                    expect( collection.toArray() ).toBe( expected );
+                } );
+            } );
+
+            describe( "push", function() {
+                it( "adds the arguments to the end of the collection", function() {
+                    var data = [ 3, 2, 1 ];
+                    var collection = new models.Collection( data );
+
+                    collection.push( "lift off!" );
+
+                    expect( collection.get() ).toBe( [ 3, 2, 1, "lift off!" ] );
+                } );
+
+                it( "can add multiple items at once", function() {
+                    var data = [ 1, 2, 3 ];
+                    var expected = [ 1, 2, 3, 4, 5 ];
+
+                    var collection = new models.Collection( data );
+                    collection.push( 4, 5 );
+
+                    expect( collection.toArray() ).toBe( expected );
+                } );
             } );
 
             describe( "prepend", function() {
@@ -1313,6 +1346,37 @@ component extends="testbox.system.BaseSpec" {
 
                     var collection = new models.Collection( data );
                     collection.prepend( 1 );
+
+                    expect( collection.toArray() ).toBe( expected );
+                } );
+
+                it( "can add multiple items at once", function() {
+                    var data = [ 2, 3, 4 ];
+                    var expected = [ 0, 1, 2, 3, 4 ];
+
+                    var collection = new models.Collection( data );
+                    collection.prepend( 0, 1 );
+
+                    expect( collection.toArray() ).toBe( expected );
+                } );
+            } );
+
+            describe( "unshift", function() {
+                it( "adds the arguments to the beginning of the collection", function() {
+                    var data = [ "kiwi", "orange", "banana" ];
+                    var collection = new models.Collection( data );
+
+                    collection.unshift( "apple" );
+
+                    expect( collection.get() ).toBe( [ "apple", "kiwi", "orange", "banana" ] );
+                } );
+
+                it( "can add multiple items at once", function() {
+                    var data = [ 2, 3, 4 ];
+                    var expected = [ 0, 1, 2, 3, 4 ];
+
+                    var collection = new models.Collection( data );
+                    collection.unshift( 0, 1 );
 
                     expect( collection.toArray() ).toBe( expected );
                 } );
@@ -1343,6 +1407,73 @@ component extends="testbox.system.BaseSpec" {
 
                     expect( shift ).toBe( expectedReturn );
                     expect( collection.toArray() ).toBe( expectedCollection );
+                } );
+            } );
+
+            describe( "splice", function() {
+                it( "insert items at a given index", function() {
+                    var data = [ "Frodo", "Sam", "Merry", "Pippin" ];
+                    var collection = new models.Collection( data );
+
+                    var result = collection.splice( 2, 0, "Bilbo" );
+
+                    expect( result ).toBe( [] );
+                    expect( collection.get() ).toBe( [ "Frodo", "Bilbo", "Sam", "Merry", "Pippin" ] );
+                } );
+
+                it( "remove items at given index", function() {
+                    var data = [ "Thorin", "Dwalin", "Balin", "Gloin" ];
+                    var collection1 = new models.Collection( data );
+                    var collection2 = new models.Collection( data );
+                    var collection3 = new models.Collection( data );
+
+                    var result1 = collection1.splice( 2, 1 );
+                    var result2 = collection2.splice( -2, 1 );
+                    var result3 = collection3.splice( -1, 1 );
+
+                    expect( result1 ).toBe( [ "Dwalin" ] );
+                    expect( collection1.get() ).toBe( [ "Thorin", "Balin", "Gloin" ] );
+
+                    expect( result2 ).toBe( [ "Balin" ] );
+                    expect( collection2.get() ).toBe( [ "Thorin", "Dwalin", "Gloin" ] );
+
+                    expect( result3 ).toBe( [ "Gloin" ] );
+                    expect( collection3.get() ).toBe( [ "Thorin", "Dwalin", "Balin" ] );
+                } );
+
+                it( "remove items and insert at given index", function() {
+                    var data = [ "Aragorn", "Boromir", "Gimli", "Legolas" ];
+                    var collection1 = new models.Collection( data );
+                    var collection2 = new models.Collection( data );
+
+                    var result1 = collection1.splice( 2, 1, "Gandalf" );
+                    var result2 = collection2.splice( 0, 2, "Gandalf", "Elrond" );
+
+                    expect( result1 ).toBe( [ "Boromir" ] );
+                    expect( collection1.get() ).toBe( [ "Aragorn", "Gandalf", "Gimli", "Legolas" ] );
+
+                    expect( result2 ).toBe( [ "Aragorn", "Boromir" ] );
+                    expect( collection2.get() ).toBe( [ "Gandalf", "Elrond", "Gimli", "Legolas" ] );
+                } );
+
+                it( "remove items to the right of [start] when [count] is ommitted or greater than [length - start]", function() {
+                    var data = [ "Hobbit", "Elf", "Dwarf", "Human" ];
+                    var collection1 = new models.Collection( data );
+                    var collection2 = new models.Collection( data );
+                    var collection3 = new models.Collection( data );
+
+                    var result1 = collection1.splice( 2 );
+                    var result2 = collection2.splice( 2, 7 );
+                    var result3 = collection3.splice( 2, 7, "Ent" );
+
+                    expect( result1 ).toBe( [ "Dwarf", "Human" ] );
+                    expect( collection1.get() ).toBe( [ "Hobbit", "Elf" ] );
+
+                    expect( result2 ).toBe( [ "Dwarf", "Human" ] );
+                    expect( collection2.get() ).toBe( [ "Hobbit", "Elf" ] );
+
+                    expect( result3 ).toBe( [ "Dwarf", "Human" ] );
+                    expect( collection3.get() ).toBe( [ "Hobbit", "Elf", "Ent" ] );
                 } );
             } );
         } );
