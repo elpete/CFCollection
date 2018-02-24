@@ -1,3 +1,11 @@
+# v3.6.1
+## 24 Feb 2018 — 20:50:37 UTC
+
+### fix
+
++ __Collection:__ Fix collection not being visible in dumps on ACF 11 ([b41d3cd](https://github.com/elpete/cfcollection/commit/b41d3cd060df47f5fbc244dec4f830821374980b))
+
+
 # v3.6.0
 ## 24 Feb 2018 — 20:36:29 UTC
 
