@@ -1,3 +1,11 @@
+# v3.6.0
+## 24 Feb 2018 — 20:36:29 UTC
+
+### feat
+
++ __Collection:__ Use a property to show the collection in a dump ([8aaa9ea](https://github.com/elpete/cfcollection/commit/8aaa9eae8731891d62d2f32c3b194bbcee57cbed))
+
+
 # 24-Jan-2018 — 04:28:37 UTC
 
 ### feat
