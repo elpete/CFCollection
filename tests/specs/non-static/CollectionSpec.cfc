@@ -37,6 +37,7 @@ component extends="testbox.system.BaseSpec" {
 
                 var newCollection = new models.Collection( originalCollection );
 
+                debug( newCollection );
                 expect( newCollection ).toBe( originalCollection );
             } );
 
@@ -1474,6 +1475,7 @@ component extends="testbox.system.BaseSpec" {
 
                     expect( result3 ).toBe( [ "Dwarf", "Human" ] );
                     expect( collection3.get() ).toBe( [ "Hobbit", "Elf", "Ent" ] );
+                    debug( collection3 );
                 } );
             } );
         } );

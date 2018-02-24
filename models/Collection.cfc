@@ -1,10 +1,13 @@
-component {
+component accessors="true" {
+
+    property name="collection" getter="false" setter="false";
 
     include "../modules/normalizeToArray/functions/normalizeToArray.cfm";
 
-    variables.collection = [];
-
     public Collection function init( any collection = [] ) {
+        if ( isInstanceOf( collection, "Collection" ) ) {
+            return collection;
+        }
         variables.collection = normalizeToArray( arguments.collection );
         return this;
     }
@@ -42,12 +45,12 @@ component {
         }
         step = isNull( step ) ? (start < end ? 1 : -1) : step;
         var length = max( ceiling( ( abs( end ) - start ) / ( abs( step ) == 0 ? 1 : abs( step ) ) ), 0 );
-        var collection = [];
+        var thisCollection = [];
         while ( length-- ) {
-            arrayAppend( collection, start );
+            arrayAppend( thisCollection, start );
             start = ( sgn( end ) == -1 ) ? start - abs( step ) : start + step;
         }
-        return collect( collection );
+        return collect( thisCollection );
     }
 
     /*==========================================
@@ -55,7 +58,7 @@ component {
     ==========================================*/
 
     public Collection function each( callback ) {
-        arrayEach( collection.toArray(), callback );
+        arrayEach( variables.collection.toArray(), callback );
 
         return this;
     }
@@ -64,8 +67,8 @@ component {
 
     public Collection function map( callback ) {
         var mapped = [];
-        for ( var i = 1; i <= arrayLen( collection ); i++ ) {
-            arrayAppend( mapped, callback( collection[ i ], i ) );
+        for ( var i = 1; i <= arrayLen( variables.collection ); i++ ) {
+            arrayAppend( mapped, callback( variables.collection[ i ], i ) );
         }
         return collect( mapped );
     }
@@ -152,8 +155,8 @@ component {
 
     public Collection function reverse() {
         var reversed = [];
-        for ( var i = arrayLen( collection ); i > 0; i-- ) {
-            arrayAppend( reversed, collection[ i ] );
+        for ( var i = arrayLen( variables.collection ); i > 0; i-- ) {
+            arrayAppend( reversed, variables.collection[ i ] );
         }
         return collect( reversed );
     }
@@ -183,8 +186,8 @@ component {
 
     public Collection function transpose() {
         return collect(
-            collect( collection[ 1 ] ).map( function( _, i ) {
-                return collect( collection ).map( function( arr ) {
+            collect( variables.collection[ 1 ] ).map( function( _, i ) {
+                return collect( variables.collection ).map( function( arr ) {
                     return arr[ i ];
                 } ).toArray();
             } ).toArray()
@@ -204,9 +207,9 @@ component {
             };
         }
 
-        arraySort( collection, callback );
+        arraySort( variables.collection, callback );
 
-        return collect( collection );
+        return collect( variables.collection );
     }
 
     public Collection function merge( required any newValues ) {
@@ -318,7 +321,7 @@ component {
         }
 
         try {
-            return collection[ index ];
+            return variables.collection[ index ];
         }
         catch ( any e ) {
             if ( ! isNull( defaultValue ) ) {
@@ -329,11 +332,11 @@ component {
     }
 
     public array function toArray() {
-        return duplicate( collection );
+        return duplicate( variables.collection );
     }
 
     public boolean function empty() {
-        return arrayIsEmpty( collection );
+        return arrayIsEmpty( variables.collection );
     }
 
     public any function first( predicate, defaultValue ) {
@@ -353,7 +356,10 @@ component {
             return getDefaultValue( defaultValue );
         }
 
-        throw( type = "CollectionIsEmpty", message = "Cannot return the result because the collection is either empty or no value matched the predicate with no default value provided." );
+        throw(
+            type = "CollectionIsEmpty",
+            message = "Cannot return the result because the collection is either empty or no value matched the predicate with no default value provided."
+        );
     }
 
     public any function last( predicate, defaultValue ) {
@@ -361,7 +367,7 @@ component {
     }
 
     public numeric function count() {
-        return arrayLen( collection );
+        return arrayLen( variables.collection );
     }
 
     public numeric function countWhere( required string key, required any value ) {
@@ -405,13 +411,13 @@ component {
     }
 
     public numeric function sum( string field ) {
-        var collection = this;
+        var thisCollection = this;
 
         if ( ! isNull( field ) ) {
-            collection = clone().pluck( field );
+            thisCollection = clone().pluck( field );
         }
 
-        return collection.reduce( function( acc, item ) {
+        return thisCollection.reduce( function( acc, item ) {
             return acc + item;
         }, 0 );
     }
@@ -425,7 +431,7 @@ component {
     }
 
     public string function join( string delimiter = "," ) {
-        return arrayToList( collection, delimiter );
+        return arrayToList( variables.collection, delimiter );
     }
 
     public any function pipe( callback ) {
@@ -470,7 +476,7 @@ component {
     public array function splice( numeric start, numeric deleteCount ) {
         var result = [];
         var args = [];
-        var collection = this.get();
+        var thisCollection = this.get();
         var length = this.length();
         var index = ( start == 0 ) ? 1 : start;
 
@@ -486,22 +492,22 @@ component {
         }
         if ( isNull( deleteCount ) || deleteCount > length - start ) {
             result = this.slice( index + 1 ).get();
-            collection = collect( collection ).slice( 1, length - index ).get();
+            thisCollection = collect( thisCollection ).slice( 1, length - index ).get();
             for ( var item in args ) {
-                arrayAppend( collection, arguments[ item ] );
+                arrayAppend( thisCollection, arguments[ item ] );
             }
         } else {
             var position = deleteCount;
             while ( position-- ) {
-                arrayAppend( result, collection[ index ] );
-                arrayDeleteAt( collection, index );
+                arrayAppend( result, thisCollection[ index ] );
+                arrayDeleteAt( thisCollection, index );
             }
             for ( var item in args ) {
-                arrayInsertAt( collection, index, arguments[ item ] );
+                arrayInsertAt( thisCollection, index, arguments[ item ] );
                 index++;
             }
         }
-        variables.collection = collection;
+        variables.collection = thisCollection;
 
         return result;
     }
