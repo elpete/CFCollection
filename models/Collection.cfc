@@ -1,6 +1,6 @@
 component accessors="true" {
 
-    property name="collection" getter="false" setter="false";
+    property name="collection";
 
     include "../modules/normalizeToArray/functions/normalizeToArray.cfm";
 
