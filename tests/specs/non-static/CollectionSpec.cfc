@@ -158,6 +158,25 @@ component extends="testbox.system.BaseSpec" {
                     expect( collection.pluck( "value" ).get() ).toBe( expected );
                 } );
 
+                  it( "plucks multiple values out of objects with accessor methods", function() {
+                    var data = [
+                        new tests.resources.PluckComponent( label = "A", value = 1 ),
+                        new tests.resources.PluckComponent( label = "B", value = 2 ),
+                        new tests.resources.PluckComponent( label = "C", value = 3 ),
+                        new tests.resources.PluckComponent( label = "D", value = 4 )
+                    ];
+                    var expected = [ 
+                        { label = "A", value = 1 },
+                        { label = "B", value = 2 },
+                        { label = "C", value = 3 },
+                        { label = "D", value = 4 } 
+                    ];
+
+                    var collection = new models.Collection( data );
+
+                    expect( collection.pluck( "label,value" ).get() ).toBe( expected );
+                } );
+
                 it( "can pluck a list of values from a collection", function() {
                     var data = [
                         { label = "A", value = 1, importance = "10" },
