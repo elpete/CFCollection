@@ -419,7 +419,9 @@ component accessors="true" {
             return acc;
         }, {} );
     }
-
+    public struct function groupByUnique( required string key, boolean forceLookup = false, boolean unique = true ) {
+        return this.groupBy( argumentCollection = arguments );
+    }
 
     public numeric function sum( string field ) {
         var thisCollection = this;
