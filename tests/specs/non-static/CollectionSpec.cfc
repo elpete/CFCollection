@@ -415,7 +415,7 @@ component extends="testbox.system.BaseSpec" {
                     };
 
                     var collection = new models.Collection( data );
-                    var actual = collection.groupBy( "id" ,false, true);
+                    var actual = collection.groupByUnique( "id" );
 
                     expect( actual ).toBe( expected );
                 } );
@@ -430,7 +430,7 @@ component extends="testbox.system.BaseSpec" {
                     var collection = new models.Collection( data );
 
                     expect( function() {
-                                var actual = collection.groupBy( "species" ,false, true);
+                                var actual = collection.groupByUnique("species" );
                             }  ).toThrow( "KeyIsNotUnique" );
                 } );
             } );
