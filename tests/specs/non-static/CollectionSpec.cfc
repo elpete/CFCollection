@@ -400,6 +400,39 @@ component extends="testbox.system.BaseSpec" {
 
                     expect( actual ).toBe( expected );
                 } );
+                it( "can group values by a given key and return a unique struct for each key", function() {
+                    var data = [
+                        { id = 1, name = "James T. Kirk", rank = "Captain", species = "Human" },
+                        { id = 2, name = "Spock", rank = "Commander", species = "Vulcan" },
+                        { id = 3, name = "Odo", rank = "Constable", species = "Changeling" },
+                        { id = 4, name = "Jonathan Archer", rank = "Captain", species = "Human" }
+                    ];
+                    var expected = {
+                        "1" = { id = 1, name = "James T. Kirk", rank = "Captain", species = "Human" },
+                        "2" = { id = 2, name = "Spock", rank = "Commander", species = "Vulcan" },
+                        "3" = { id = 3, name = "Odo", rank = "Constable", species = "Changeling" },
+                        "4" = { id = 4, name = "Jonathan Archer", rank = "Captain", species = "Human" }
+                    };
+
+                    var collection = new models.Collection( data );
+                    var actual = collection.groupBy( "id" ,false, true);
+
+                    expect( actual ).toBe( expected );
+                } );
+                it( "can group values by a given key and unique or throw error", function() {
+                    var data = [
+                        { id = 1, name = "James T. Kirk", rank = "Captain", species = "Human" },
+                        { id = 2, name = "Spock", rank = "Commander", species = "Vulcan" },
+                        { id = 3, name = "Odo", rank = "Constable", species = "Changeling" },
+                        { id = 4, name = "Jonathan Archer", rank = "Captain", species = "Human" }
+                    ];
+
+                    var collection = new models.Collection( data );
+
+                    expect( function() {
+                                var actual = collection.groupBy( "species" ,false, true);
+                            }  ).toThrow( "KeyIsNotUnique" );
+                } );
             } );
 
             it( "transpose", function() {
