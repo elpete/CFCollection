@@ -409,6 +409,21 @@ component accessors="true" {
             return acc;
         }, {} );
     }
+    public struct function groupByUnique( required string key, boolean forceLookup = false ) {
+        return this.reduce( function( acc, item ) {
+            if ( ( isObject( item ) && structKeyExists( item, "get#key#" ) ) || forceLookup ) {
+                var value = invoke( item, "get#key#" );
+            }
+            else {
+                var value = item[ key ];
+            }
+            if ( ! structKeyExists( acc, value ) ) {
+                acc[ value ] = [];
+            }
+            acc[ value ] = item;
+            return acc;
+        }, {} );
+    }
 
     public numeric function sum( string field ) {
         var thisCollection = this;
