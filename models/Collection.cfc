@@ -394,7 +394,7 @@ component accessors="true" {
         return accumulator;
     }
 
-    public struct function groupBy( required string key, boolean forceLookup = false ) {
+    public struct function groupBy( required string key, boolean forceLookup = false, boolean unique = false ) {
         return this.reduce( function( acc, item ) {
             if ( ( isObject( item ) && structKeyExists( item, "get#key#" ) ) || forceLookup ) {
                 var value = invoke( item, "get#key#" );
@@ -405,25 +405,21 @@ component accessors="true" {
             if ( ! structKeyExists( acc, value ) ) {
                 acc[ value ] = [];
             }
-            arrayAppend( acc[ value ], item );
+            if(!unique){
+                arrayAppend( acc[ value ], item );
+            }else{
+                if( ! isArray( acc[ value ] ) ){
+                    throw(
+                        type = "KeyIsNotUnique",
+                        message="The groupBy key is not unique within the collection."
+                        );
+                }
+                acc[ value ] = item;
+            }
             return acc;
         }, {} );
     }
-    public struct function groupByUnique( required string key, boolean forceLookup = false ) {
-        return this.reduce( function( acc, item ) {
-            if ( ( isObject( item ) && structKeyExists( item, "get#key#" ) ) || forceLookup ) {
-                var value = invoke( item, "get#key#" );
-            }
-            else {
-                var value = item[ key ];
-            }
-            if ( ! structKeyExists( acc, value ) ) {
-                acc[ value ] = [];
-            }
-            acc[ value ] = item;
-            return acc;
-        }, {} );
-    }
+
 
     public numeric function sum( string field ) {
         var thisCollection = this;
