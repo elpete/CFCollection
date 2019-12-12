@@ -405,10 +405,10 @@ component accessors="true" {
             if ( ! structKeyExists( acc, value ) ) {
                 acc[ value ] = [];
             }
-            if(!unique){
+            if ( ! unique ) {
                 arrayAppend( acc[ value ], item );
-            }else{
-                if( ! isArray( acc[ value ] ) ){
+            } else {
+                if ( ! isArray( acc[ value ] ) ) {
                     throw(
                         type = "KeyIsNotUnique",
                         message="The groupBy key is not unique within the collection."
@@ -419,7 +419,9 @@ component accessors="true" {
             return acc;
         }, {} );
     }
-    public struct function groupByUnique( required string key, boolean forceLookup = false, boolean unique = true ) {
+
+    public struct function groupByUnique( required string key, boolean forceLookup = false ) {
+        arguments.unique = true;
         return this.groupBy( argumentCollection = arguments );
     }
 
