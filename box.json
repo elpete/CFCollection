@@ -1,8 +1,8 @@
 {
     "name":"CFCollection",
-    "version":"3.6.1",
+    "version":"3.6.2",
     "author":"Eric Peterson",
-    "location":"elpete/cfcollection#v3.6.1",
+    "location":"elpete/cfcollection#v3.6.2",
     "homepage":"https://github.com/elpete/cfcollection",
     "documentation":"https://github.com/elpete/cfcollection",
     "repository":{
@@ -41,9 +41,9 @@
         "coldbox":"^4.3.0"
     },
     "installPaths":{
-        "testbox":"testbox",
-        "coldbox":"tests/resources/app/coldbox",
-        "normalizeToArray":"modules/normalizeToArray"
+        "testbox":"testbox/",
+        "coldbox":"tests/resources/app/coldbox/",
+        "normalizeToArray":"modules/normalizeToArray/"
     },
     "dependencies":{
         "normalizeToArray":"^1.0.2"

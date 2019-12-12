@@ -1,3 +1,15 @@
+# v3.6.2
+## 12 Dec 2019 — 21:53:26 UTC
+
+### other
+
++ __\*:__ Remove emoki from README
+ ([ea5f806](https://github.com/elpete/cfcollection/commit/ea5f806815823c78e2244b138d71e74f9829b2f7))
++ __\*:__ fix: Remove node dependencies
+ ([0d4df2e](https://github.com/elpete/cfcollection/commit/0d4df2e655781bf3b913d1a334b59ad5a39c9750))
++ __\*:__ feat: groupByUnique ([8cc3b4d](https://github.com/elpete/cfcollection/commit/8cc3b4d0304c35ae1b6f1fbee1e4320667b7974c))
+
+
 # v3.6.1
 ## 24 Feb 2018 — 20:50:37 UTC
 
