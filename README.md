@@ -7,7 +7,7 @@
 ## WireBox Integration
 
 If your CFML engine supports static methods (Lucee 5+), WireBox will return a method
-with a static constructor and static macro support. 👍
+with a static constructor and static macro support.
 
 A few mappings are provided out-of-the-box:
 
