@@ -585,7 +585,28 @@ collection.groupBy( "rank" );
 //     ]
 // }
 ```
+### groupByUnique
+Returns a struct similar to the groupBy() but different in that the values are expected to have a one-to-one relationship to the  key value. Items are therefore structs, not arrays of structs.
 
+The key can be the name of any property. The key values must be unique or it will throw an exception. 
+
+```cfc
+var collection = new models.Collection( [
+    { id = 1, name = "James T. Kirk", rank = "Captain", species = "Human" },
+    { id = 2, name = "Spock", rank = "Commander", species = "Vulcan" },
+    { id = 3, name = "Odo", rank = "Constable", species = "Changeling" },
+    { id = 4, name = "Jonathan Archer", rank = "Captain", species = "Human" }
+] );
+
+collection.groupByUnique( "id" );
+
+//{
+// 	"1" = { id = 1, name = "James T. Kirk", rank = "Captain", species = "Human" },
+// 	"2" = { id = 2, name = "Spock", rank = "Commander", species = "Vulcan" },
+// 	"3" = { id = 3, name = "Odo", rank = "Constable", species = "Changeling" },
+// 	"4" = { id = 4, name = "Jonathan Archer", rank = "Captain", species = "Human" }
+//}
+```
 ### serialize
 Returns the underlying collection serialized to JSON.  Can limit the serialized properties to a passed in comma-separated list or array of keys.
 
