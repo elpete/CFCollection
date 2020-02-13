@@ -2,7 +2,7 @@
     "name":"CFCollection",
     "version":"3.6.2",
     "author":"Eric Peterson",
-    "location":"elpete/cfcollection#v3.6.2",
+    "location":"forgeboxStorage",
     "homepage":"https://github.com/elpete/cfcollection",
     "documentation":"https://github.com/elpete/cfcollection",
     "repository":{
@@ -20,9 +20,7 @@
         "chaining",
         "macro"
     ],
-    "scripts":{
-        "postVersion":"package set location='elpete/cfcollection#v`package version`'"
-    },
+    "scripts":{},
     "private":false,
     "license":[
         {
