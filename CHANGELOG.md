@@ -1,3 +1,11 @@
+# v3.6.3
+## 13 Feb 2020 — 17:29:58 UTC
+
+### other
+
++ __\*:__ chore: Use forgeboxStorage ([813f53f](https://github.com/elpete/cfcollection/commit/813f53f89109fe5851baa91f447de96d77b5e00b))
+
+
 # v3.6.2
 ## 12 Dec 2019 — 21:53:26 UTC
 
