@@ -195,6 +195,33 @@ component extends="testbox.system.BaseSpec" {
 
                     expect( collection.pluck( [ "value", "importance" ] ).get() ).toBe( expected );
                 } );
+
+                it( "can pluck an array of values from a collection and handle null values", function() {
+                    var data = [
+                        { label = "A", value = 1, importance = "10" },
+                        { label = "B", value = javaCast( "null", "" ), importance = "20" },
+                        { label = "C", value = 3, importance = "50" },
+                        { label = "D", value = 4, importance = "20" }
+                    ];
+                    var expected = [
+                        { value = 1, importance = "10" },
+                        { value = javaCast( "null", "" ), importance = "20" },
+                        { value = 3, importance = "50" },
+                        { value = 4, importance = "20" }
+                    ];
+
+                    var singleValueExpected = [
+                        [ 1, javaCast( "null", "" ), 3, 4 ]
+                    ];
+
+                    var collection = new models.Collection( data );
+
+                    expect( collection.pluck( [ "value", "importance" ] ).get() ).toBe( expected );
+                    
+                    var arrayWithNullValue =  collection.pluck( "value" ).get();
+                    
+                    expect( isNull( arrayWithNullValue[ 2 ] ) ).toBeTrue();
+                } );
             } );
 
             describe( "flatten", function() {
