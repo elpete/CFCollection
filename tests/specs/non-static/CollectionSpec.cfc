@@ -216,11 +216,20 @@ component extends="testbox.system.BaseSpec" {
 
                     var collection = new models.Collection( data );
 
-                    expect( collection.pluck( [ "value", "importance" ] ).get() ).toBe( expected );
+                    var collectionWithNullValue = collection.pluck( [ "value", "importance" ] ).get();
                     
-                    var arrayWithNullValue =  collection.pluck( "value" ).get();
+                    // convoluted tests to satisfy both Adobe and Lucee, since the null key won't exist in Adobe but will exist and just be null in Lucee
+
+                    var itemWithNullValue = collectionWithNullValue[ 2 ];
+                    var keyDoesntExistOrIsNull = ( !itemWithNullValue.keyExists( "value" ) || isNull( itemWithNullValue[ "value" ] ) );
                     
-                    expect( isNull( arrayWithNullValue[ 2 ] ) ).toBeTrue();
+                    expect( keyDoesntExistOrIsNull ).toBeTrue();
+                    
+                    var arrayWithNullValue = collection.pluck( "value" ).get();
+                  
+                    var eleIsUndefinedOrIsJustNull = ( !arrayIsDefined( arrayWithNullValue, 2 ) || isNull( arrayWithNullValue[ 2 ] ) );
+
+                    expect( eleIsUndefinedOrIsJustNull ).toBeTrue();
                 } );
             } );
 

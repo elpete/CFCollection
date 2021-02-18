@@ -94,7 +94,7 @@ component accessors="true" {
                     obj[ key ] = invoke( item, "get#key#" );
                 }
                 else {
-                    obj[ key ] = ( !isNull( item[ key ] ) ? item[ key ] : javaCast( "null", "" ) );
+                    obj[ key ] =  ( item.keyExists( key ) && !isNull( item[ key ] ) ) ? item[ key ] : javaCast( "null", "" );
                 }
             }
             return obj;
