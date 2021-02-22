@@ -221,7 +221,7 @@ component extends="testbox.system.BaseSpec" {
                     // convoluted tests to satisfy both Adobe and Lucee, since the null key won't exist in Adobe but will exist and just be null in Lucee
 
                     var itemWithNullValue = collectionWithNullValue[ 2 ];
-                    var keyDoesntExistOrIsNull = ( !itemWithNullValue.keyExists( "value" ) || isNull( itemWithNullValue[ "value" ] ) );
+                    var keyDoesntExistOrIsNull = ( !structKeyExists( itemWithNullValue, "value" ) || isNull( itemWithNullValue[ "value" ] ) );
                     
                     expect( keyDoesntExistOrIsNull ).toBeTrue();
                     
