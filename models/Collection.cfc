@@ -84,7 +84,7 @@ component accessors="true" {
                 if ( isObject( item ) && structKeyExists( item, "get#keys[ 1 ]#" ) ) {
                     return invoke( item, "get#keys[ 1 ]#" );
                 }
-                return item.keyExists( keys[ 1 ] ) && !isNull( item[ keys[ 1 ] ] ) ? item[ keys[ 1 ] ] : javacast( "null", "" );
+                return structKeyExists( item, keys[ 1 ] ) && !isNull( item[ keys[ 1 ] ] ) ? item[ keys[ 1 ] ] : javacast( "null", "" );
             }
 
             // CF10 doesn't have arrayReduce
@@ -94,7 +94,7 @@ component accessors="true" {
                     obj[ key ] = invoke( item, "get#key#" );
                 }
                 else {
-                    obj[ key ] =  ( item.keyExists( key ) && !isNull( item[ key ] ) ) ? item[ key ] : javaCast( "null", "" );
+                    obj[ key ] =  ( structKeyExists( item, key ) && !isNull( item[ key ] ) ) ? item[ key ] : javaCast( "null", "" );
                 }
             }
             return obj;
