@@ -417,7 +417,7 @@ component accessors="true" {
                 acc[ value ] = item;
             }
             return acc;
-        }, {} );
+        }, structNew( "ordered" ) );
     }
 
     public struct function groupByUnique( required string key, boolean forceLookup = false ) {
