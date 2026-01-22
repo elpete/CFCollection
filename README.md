@@ -1,3 +1,5 @@
+# THIS SOFTWARE HAS BEEN ARCHIVED AND IS UNMAINTAINED
+
 # CFCollection
 
 ## An array wrapper for functional programming
