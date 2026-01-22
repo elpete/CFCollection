@@ -2,12 +2,15 @@ component accessors="true" {
 
     property name="collection";
 
+    this._isCFCollection = true;
+
     include "../modules/normalizeToArray/functions/normalizeToArray.cfm";
 
     public Collection function init( any collection = [] ) {
-        if ( isInstanceOf( collection, "Collection" ) ) {
+        if ( isStruct( collection ) && structKeyExists( collection, "_isCFCollection" ) ) {
             return collection;
         }
+
         variables.collection = normalizeToArray( arguments.collection );
         return this;
     }
@@ -214,7 +217,7 @@ component accessors="true" {
 
     public Collection function merge( required any newValues ) {
         var values = this.toArray();
-        if ( isInstanceOf( newValues, "Collection" ) ) {
+        if ( isStruct( newValues ) && structKeyExists( newValues, "_isCFCollection" ) ) {
             newValues = newValues.toArray();
         }
         for ( var value in normalizeToArray( newValues ) ) {

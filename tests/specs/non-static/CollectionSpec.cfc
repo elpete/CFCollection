@@ -217,16 +217,16 @@ component extends="testbox.system.BaseSpec" {
                     var collection = new models.Collection( data );
 
                     var collectionWithNullValue = collection.pluck( [ "value", "importance" ] ).get();
-                    
+
                     // convoluted tests to satisfy both Adobe and Lucee, since the null key won't exist in Adobe but will exist and just be null in Lucee
 
                     var itemWithNullValue = collectionWithNullValue[ 2 ];
                     var keyDoesntExistOrIsNull = ( !structKeyExists( itemWithNullValue, "value" ) || isNull( itemWithNullValue[ "value" ] ) );
-                    
+
                     expect( keyDoesntExistOrIsNull ).toBeTrue();
-                    
+
                     var arrayWithNullValue = collection.pluck( "value" ).get();
-                  
+
                     var eleIsUndefinedOrIsJustNull = ( !arrayIsDefined( arrayWithNullValue, 2 ) || isNull( arrayWithNullValue[ 2 ] ) );
 
                     expect( eleIsUndefinedOrIsJustNull ).toBeTrue();
@@ -1287,7 +1287,7 @@ component extends="testbox.system.BaseSpec" {
                 var isCollection = false;
                 var collection = new models.Collection( data );
                 var actual = collection.pipe( function( greetings ) {
-                    isCollection = isInstanceOf( greetings, "models.Collection" );
+                    isCollection = isStruct( greetings ) && structKeyExists( greetings, "_isCFCollection" );
                 } );
 
                 expect( isCollection ).toBeTrue( "The value passed in to the pipe callback should be a Collection." );
